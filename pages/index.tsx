@@ -1,8 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-import Logo from "@/components/Logo";
 import Button from "@/components/Button";
 import { useRouter } from "next/router";
 

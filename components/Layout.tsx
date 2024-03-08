@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> =  ({children}) => {
   }, [router?.pathname]);
 
   return (
-    <article className="relative flex flex-col items-center w-screen h-screen font-poppins bg-black">
+    <article className="relative flex flex-col items-center w-screen h-screen font-spacemono bg-black">
       <div className={`flex flex-col items-center w-full h-full min-h-screen bg-fixed bg-cover ${ordinoxBackground}`}>
       <div className='flex flex-col w-full h-full z-20'>
         <header>

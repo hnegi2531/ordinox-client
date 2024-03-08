@@ -2,13 +2,14 @@ import React from 'react'
 
 const Leaderboard = () => {
   return (
-    <div className='text-white bg-black'>
-       <table className="table-auto w-full">
+    <div className='text-white bg-black px-20'>
+       <table className="table-auto w-full ">
     <thead>
       <tr>
-        <th className=" px-4 py-2 text-left">Header 1</th>
-        <th className=" px-4 py-2">Header 2</th>
-        <th className=" px-4 py-2">Header 3</th>
+        <th className="px-4 py-2 text-left uppercase">Rank</th>
+        <th className="px-4 py-2 text-left uppercase">usename</th>
+        <th className="px-4 py-2 text-left uppercase">invited by</th>
+        <th className="px-4 py-2 text-right uppercase">points earned</th>
       </tr>
     </thead>
     <tbody>
@@ -30,3 +31,4 @@ const Leaderboard = () => {
 }
 
 export default Leaderboard
+

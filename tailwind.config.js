@@ -30,6 +30,11 @@ module.exports = {
         ordinox:"url('/ordinox.webp')",
         "gradient-radial": "radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))",
       },
+      fontFamily: {
+        poppins: "Poppins, sans-serif",
+        raleway: "Raleway, sans-serif",
+        spacemono: "Space Mono, sans-serif",
+      },
     },
   },
   plugins: [],

@@ -38,17 +38,17 @@ const Authenticate = () => {
        <div className='flex flex-row items-center h-full w-full px-20'>
       <div className='flex-1'>
         <div className='flex flex-col gap-10'>
-          <h1 className='text-4xl text-brand-300'>claim ordinox points</h1>
-          <p className='text-xl text-brand-300 text-justify max-w-lg'>Ordinox facilitates a native cross-chain swap between ERC20 tokens and Bitcoin Inscriptions / Runes based tokens</p>
+          <h1 className='text-3xl text-brand-300'>claim ordinox points</h1>
+          <p className='text-sm text-justify max-w-lg'>Ordinox facilitates a native cross-chain swap between ERC20 tokens and Bitcoin Inscriptions / Runes based tokens</p>
           <div>
             <Button variant='primary' className='uppercase' onClick={() => setShowModal(true)}>log in/sign up</Button>
           </div>
         </div>
       </div>
       <div className='flex-1'>
-        <div className='flex flex-row items-center justify-between gap-8 border-b-2'>
+        <div className='flex flex-row items-center'>
             {rounds.map((round) => (
-              <div key={round.number} className={`flex flex-col uppercase mb-2`}>
+              <div key={round.number} className={`flex-1 flex flex-col uppercase mb-2 border-b-2 pb-4 ${round.isComplete? "border-red-400": ""}`}>
                   <h2 className='text-3xl text-white mb-2'>Round <span className={`${round.isComplete? "text-red-400": ""}`}>{round.number}</span></h2>
                   <span className='text-white'>{round.text1}</span>
                   <span className={`${round.isComplete? "text-green-400": "text-white"}`}>{round.text2}</span>

@@ -13,13 +13,13 @@ export default function Home() {
         <div className="flex flex-col items-center justify-center gap-8 mb-20 max-w-lg text-center">
 
           <div>
-            <h1 className="text-4xl text-brand-300 text-center">
+            <h1 className="text-3xl text-brand-300 text-center">
               brdiging native liquidity seamlessly
             </h1>
           </div>
 
-          <div className="max-w-sm">
-            <p className="text-sm text-white">
+          <div className="max-w-md">
+            <p className="text-sm">
               Ordinox facilitates a native cross-chain swap between ERC20 tokens and Bitcoin Inscriptions / Runes based tokens
             </p>
           </div>

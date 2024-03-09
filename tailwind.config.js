@@ -23,6 +23,7 @@ module.exports = {
           950: '#201708'
         },
         secondryText: "#D9D9D9",
+        tableBorder: "#636363"
 
       },
       backgroundImage: {
@@ -34,6 +35,7 @@ module.exports = {
         poppins: "Poppins, sans-serif",
         raleway: "Raleway, sans-serif",
         spacemono: "Space Mono, sans-serif",
+        mplus2: "'M PLUS 2', sans-serif"
       },
     },
   },

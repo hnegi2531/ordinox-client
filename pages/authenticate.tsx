@@ -1,5 +1,6 @@
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
+import Image from 'next/image'
 import React, { useState } from 'react'
 
 const rounds = [
@@ -8,6 +9,7 @@ const rounds = [
     text1: "early access",
     text2: "earn ordinox points",
     date: "march 2024",
+    imageUrl: '/round0.png',
     isComplete: true,
   },
 
@@ -16,6 +18,7 @@ const rounds = [
     text1: "app launch",
     text2: "incentivised testnet",
     date: "may 2024",
+    imageUrl: '/round1.png',
     isComplete: false,
   },
 
@@ -24,6 +27,7 @@ const rounds = [
     text1: "revelations",
     text2: "redeem ordinox points",
     date: "-",
+    imageUrl: '/round2.png',
     isComplete: false,
   }
 ]
@@ -48,11 +52,17 @@ const Authenticate = () => {
       <div className='flex-1'>
         <div className='flex flex-row items-center'>
             {rounds.map((round) => (
-              <div key={round.number} className={`flex-1 flex flex-col uppercase mb-2 border-b-2 pb-4 ${round.isComplete? "border-red-400": ""}`}>
-                  <h2 className='text-3xl text-white mb-2'>Round <span className={`${round.isComplete? "text-red-400": ""}`}>{round.number}</span></h2>
-                  <span className='text-white'>{round.text1}</span>
-                  <span className={`${round.isComplete? "text-green-400": "text-white"}`}>{round.text2}</span>
-                  <span className='text-white'>{round.date}</span>
+              <div key={round.number} className={`flex-1 flex flex-col justify-end uppercase border-b-2 pb-4 ${round.isComplete? "border-roundBorder": ""}`}>
+
+                <div className='relative h-28 w-28'>
+                  <Image src={round.imageUrl} alt={`round-${round.number}`} layout="fill"/>
+                </div>
+                  
+
+
+                  <span className='text-sm'>{round.text1}</span>
+                  <span className={`text-sm ${round.isComplete? "text-green-400": ""}`}>{round.text2}</span>
+                  <span className='text-sm'>{round.date}</span>
               </div>
             ))}
         </div>

@@ -24,12 +24,15 @@ module.exports = {
         },
         secondryText: "#D9D9D9",
         tableBorder: "#636363",
-        roundBorder: "#FF3945"
-
+        roundBorder: "#FF3945",
+        popUp: "#1D1E20",
+        textWarning: "#FF5555",
+        verified: "#00FFA3"
       },
       backgroundImage: {
         paper: "url('/ordinox-bg.webp')",
         ordinox:"url('/ordinox.webp')",
+        ordinoxScore: "url('/ordinox_score.webp')",
         "gradient-radial": "radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))",
       },
       fontFamily: {

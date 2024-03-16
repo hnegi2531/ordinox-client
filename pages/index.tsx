@@ -1,12 +1,18 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import Button from "@/components/Button";
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"; 
+import { GetServerSideProps } from "next";
+import { baseURL } from "@/apis/axios";
+import { fetchUserInfo } from "@/apis/users";
+import { AxiosError } from "axios";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const router = useRouter();
+
   return (
     <>
       <div className="flex items-center justify-center h-full w-full">
@@ -44,3 +50,47 @@ export default function Home() {
     </>
   );
 }
+
+type PageProps = {
+  isAuthanticated: boolean;
+  categories?: string;
+}
+export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
+  let authToken = context.req.headers.cookie;
+  authToken = authToken?.split("auth_token=")[1] ? `Bearer ${authToken?.split("auth_token=")[1]}`: "";
+
+  let redirectLocation: string | null = "";
+  try {
+    const userInfo = await fetchUserInfo(authToken);
+    const getDest = (): string | null => {
+      if(userInfo?.EthAddress && userInfo?.Invite?.Code) return '/score';
+      if(userInfo?.EthAddress && !userInfo?.Invite?.Code) return '/invite';
+      return null;
+    }
+    redirectLocation =  getDest();
+  } catch (error) {
+    const err = error as AxiosError
+    if(err?.response?.status === 401){
+      redirectLocation = null;
+    }
+  }
+
+  const redirectConfig = {
+    permanent: false,
+    destination: redirectLocation
+  }
+
+  const _props: PageProps = {
+    isAuthanticated: true,
+    categories: "anshuhim"
+  }
+
+
+  const returnValue = redirectLocation ? {
+    redirect: redirectConfig, 
+    props: _props 
+  }: {
+    props: _props 
+  }
+  return returnValue
+};

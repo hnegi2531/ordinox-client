@@ -1,5 +1,9 @@
+import { getUser } from "@/apis/users";
+import { useUserInfo } from "@/hooks/queries/useUser";
+// import { useUserInfo } from "@/hooks/queries/useUser";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Logo from "./Logo";
 import NavRoute from "./NavRoute";
 
@@ -20,12 +24,23 @@ const navLinks: NavLinkType[] = [
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState(0);
   const router = useRouter();
-  const isUserLoggedIn = true;
+
+  const {data: userInfo } = useUserInfo();
+  
+  const isUserLoggedIn = useMemo(
+    () => (userInfo?.EthAddress && userInfo?.Invite?.Code ? true : false),
+    [userInfo?.EthAddress, userInfo?.Invite?.Code]
+  );
+
+  useEffect(() => {
+    if(router?.pathname === "/score") setActiveLink(1);
+  }, [router?.pathname])
 
   const handleLogoClick = useCallback(() => {
     setActiveLink(0);
     router.push("/");
   }, []);
+
 
   return (
     <nav className="px-20 py-10">
@@ -54,4 +69,4 @@ const Navbar = () => {
   );
 };
 
-export default React.memo(Navbar);
+export default Navbar;

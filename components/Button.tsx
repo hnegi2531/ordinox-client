@@ -25,7 +25,7 @@ const Button: FC<ButtonProps> = ({
         return "bg-brand-200  hover:bg-brand-300 active:bg-brand-200 border-brand-200 hover:border-brand-300 active:border-brand-200 text-black";
       }
       case "secondary": {
-        return " bg-black text-white hover:bg-grey-900 active:bg-black border border-grey-800";
+        return " bg-transparent text-white";
       }
       case "tertiary": {
         return "text-black bg-grey-300 hover:bg-grey-400 active:bg-grey-500";

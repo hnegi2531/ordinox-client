@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import Footer from './Footer';
 import Navbar from './Navbar'
 
@@ -18,6 +18,10 @@ const Layout: React.FC<LayoutProps> =  ({children}) => {
 
     if(router?.pathname === '/leaderboard'){
       return "bg-black"
+    }
+
+    if(router?.pathname === '/score'){
+      return "bg-ordinoxScore"
     }
 
     return "bg-ordinox";
@@ -43,4 +47,4 @@ const Layout: React.FC<LayoutProps> =  ({children}) => {
   )
 }
 
-export default React.memo(Layout);
+export default Layout;

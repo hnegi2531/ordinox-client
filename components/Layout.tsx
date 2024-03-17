@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Footer from './Footer';
-import Navbar from './Navbar'
+import Navbar from './Navbar';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type LayoutProps = {
   children : React.ReactNode;
@@ -34,8 +35,19 @@ const Layout: React.FC<LayoutProps> =  ({children}) => {
         <header>
           <Navbar />
         </header>
-        <section className='h-full w-full'>
-          {children}
+        <section className={`h-full w-full`}>
+        <AnimatePresence mode='wait'>
+              <motion.div
+                key={router.pathname}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+                className="h-full w-full"
+              >
+                {children}
+              </motion.div>
+            </AnimatePresence>
         </section>
       <div className='flex justify-center items-center mb-20'>
         {router.pathname!=="/leaderboard" && <Footer />}

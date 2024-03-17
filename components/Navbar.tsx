@@ -54,7 +54,7 @@ const Navbar = () => {
               <NavRoute
                 key={link.id}
                 route={link.route}
-                className={`text-xs ${activeLink === link.id ? "border-b-2 border-white" : ""} ${
+                className={`text-xs transition-all duration-100 pb-1  ${activeLink === link.id ? "border-b border-secondryText" : ""} ${
                   link.isPrivateRoute ? (isUserLoggedIn ? "visible" : "invisible") : "visible"
                 }`}
                 onClick={() => setActiveLink(link.id)}

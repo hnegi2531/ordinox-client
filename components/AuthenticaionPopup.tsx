@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 import AccountCreated from "./AccountCreated";
@@ -8,6 +8,7 @@ import Authenticate from "./Authenticate";
 import ConfirmPassword from "./ConfirmPassword";
 import SecureAccount from "./SecureAccount";
 import SetPassword from "./SetPassword";
+import { AnimatePresence, motion } from "framer-motion";
 
 type AuthenticaionPopupProps = {
   closeModal: () => void;
@@ -19,10 +20,9 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal }) =
   const router = useRouter();
 
   const handleClose = () => {
-
-    if(screenNumber === 5) router.push('/invite');
+    if (screenNumber === 5) router.push("/invite");
     closeModal();
-  }
+  };
 
   const getScreen = () => {
     switch (screenNumber) {
@@ -45,12 +45,31 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal }) =
 
   return (
     <React.Fragment>
-      <div className="h-[55%] w-80 relative bg-popUp px-6 py-4 flex flex-col">
-        <span onClick={handleClose} className="self-end cursor-pointer">
-          <IoMdCloseCircleOutline className="text-textWarning text-2xl" />
-        </span>
-        <div className="flex-grow flex flex-col">{getScreen()}</div>
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.3 }}
+          className="h-[55%] w-80 relative bg-popUp px-6 py-4 flex flex-col bg-opacity-80 rounded-lg border border-gray-300 shadow-xl backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
+        >
+          <span onClick={handleClose} className="self-end cursor-pointer">
+            <IoMdCloseCircleOutline className="text-textWarning text-2xl" />
+          </span>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={screenNumber}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}
+              className="flex-grow flex flex-col"
+            >
+              {getScreen()}
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
+      </AnimatePresence>
     </React.Fragment>
   );
 };

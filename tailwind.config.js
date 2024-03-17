@@ -33,7 +33,7 @@ module.exports = {
         paper: "url('/ordinox-bg.webp')",
         ordinox:"url('/ordinox.webp')",
         ordinoxScore: "url('/ordinox_score.webp')",
-        "gradient-radial": "radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))",
+        "gradient-radial": "radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4))",
       },
       fontFamily: {
         poppins: "Poppins, sans-serif",

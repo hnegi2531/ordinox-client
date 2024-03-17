@@ -1,4 +1,4 @@
-import { getUser } from "@/apis/users";
+import { fetchUserInfo, getUser } from "@/apis/users";
 import { useUserInfo } from "@/hooks/queries/useUser";
 // import { useUserInfo } from "@/hooks/queries/useUser";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Logo from "./Logo";
 import NavRoute from "./NavRoute";
+import Cookies from 'js-cookie';
+
 
 type NavLinkType = {
   id: number;
@@ -23,17 +25,19 @@ const navLinks: NavLinkType[] = [
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState(0);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const router = useRouter();
-
-  const {data: userInfo } = useUserInfo();
   
-  const isUserLoggedIn = useMemo(
-    () => (userInfo?.EthAddress && userInfo?.Invite?.Code ? true : false),
-    [userInfo?.EthAddress, userInfo?.Invite?.Code]
-  );
-
   useEffect(() => {
-    if(router?.pathname === "/score") setActiveLink(1);
+    (async() => {
+      if(router?.pathname === "/score") {
+        const token = `Bearer ${Cookies.get("auth_token")}`
+        const userInfo = await fetchUserInfo(token);
+        console.log(userInfo)
+        setIsUserLoggedIn((userInfo?.EthAddress && userInfo?.Invite?.Code) ? true : false);
+        setActiveLink(1)
+      };
+    })()
   }, [router?.pathname])
 
   const handleLogoClick = useCallback(() => {
@@ -54,7 +58,7 @@ const Navbar = () => {
               <NavRoute
                 key={link.id}
                 route={link.route}
-                className={`text-xs transition-all duration-100 pb-1  ${activeLink === link.id ? "border-b border-secondryText" : ""} ${
+                className={`text-xs transition-all duration-100 pb-1 select-none  ${activeLink === link.id ? "border-b border-secondryText" : ""} ${
                   link.isPrivateRoute ? (isUserLoggedIn ? "visible" : "invisible") : "visible"
                 }`}
                 onClick={() => setActiveLink(link.id)}

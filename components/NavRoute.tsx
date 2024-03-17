@@ -11,7 +11,7 @@ type NavRouteProps = {
 } & DefaultLinkProps;
 const NavRoute: React.FC<NavRouteProps> = ({ children, route , className, ...anchorProps }) => {
   return (
-    <Link href={route} {...anchorProps} className={`text-gray-100 uppercase ${className}`}>{children}</Link>
+    <Link href={route} {...anchorProps} className={`text-gray-100 uppercase ${className} select-none`}>{children}</Link>
   )
 }
 

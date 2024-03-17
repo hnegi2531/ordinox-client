@@ -4,24 +4,26 @@ import OTPInput from "@/components/OTPInput";
 import { useReedemInvite } from "@/hooks/mutations/useAddAddress";
 import { AxiosError } from "axios";
 import { GetServerSideProps } from "next";
-import React, { useEffect, useState } from "react";
-
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 const Discord = () => {
   const [otp, setOtp] = useState("");
 
-  // useEffect(() => {
-  //   getUserGenerate();
-  // }, [])
-  
+  const router = useRouter();
 
-  const {mutate: reedemInviteMutation} = useReedemInvite();
+  const {mutate: reedemInviteMutation, isPending: reedemInviteMutationLoading } = useReedemInvite();
 
   const handleOTPChange = (otp: string) => {
     setOtp(otp);
   };
 
   const handleInvite = () => {
-    reedemInviteMutation(otp.toString());
+    console.log(otp.length)
+    reedemInviteMutation(otp.toString(),{
+      onSuccess: () =>{
+        router.push("/score");
+      }
+    });
   }
 
   return (
@@ -29,7 +31,7 @@ const Discord = () => {
       <div className="max-w-lg flex flex-col gap-20">
         <div className="flex flex-col gap-6">
           <div>
-            <h1 className="text-3xl text-brand-300 text-center">enter invite code</h1>
+            <h1 className="text-3xl text-brand-300 text-center">{reedemInviteMutationLoading ? "validating invite code" : "enter invite code"}</h1>
           </div>
           <div className="max-w-md">
             <p className="text-sm text-center">

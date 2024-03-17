@@ -4,10 +4,11 @@ import Modal from "@/components/Modal";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useUserInfo } from "@/hooks/queries/useUser";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import { AxiosError } from "axios";
 import { fetchUserInfo } from "@/apis/users";
 import { GetServerSideProps } from "next";
+import Cookies from "js-cookie";
 
 const rounds = [
   {
@@ -38,15 +39,33 @@ const rounds = [
   },
 ];
 
-type AuthnecateProps = {
-}
+type AuthnecateProps = {};
 
 const Authenticate: React.FC<AuthnecateProps> = () => {
-
   const [showModal, setShowModal] = useState(false);
 
   const router = useRouter();
 
+  // const token =
+  // console.log(router.query?.token);
+  useEffect(() => {
+    (async () => {
+      if (typeof router?.query?.token === "string") {
+        Cookies.set("auth_token", router?.query?.token);
+        localStorage.setItem("auth_token", router?.query?.token);
+        const token = router?.query?.token ? `Bearer ${router?.query?.token}` : "";
+        const userInfo = await fetchUserInfo(token);
+        if (userInfo?.EthAddress && !userInfo?.Invite?.Code) router.push("/invite");
+        if (userInfo?.EthAddress && userInfo?.Invite?.Code) router.push("/score");
+      }
+    })();
+  }, [router?.query?.token]);
+
+  // const{ data: userInfo } = useUserInfo();
+  // useEffect(() => {
+  //   if(userInfo?.EthAddress && !userInfo?.Invite?.Code) router.push('/invite');
+  //     if(userInfo?.EthAddress && userInfo?.Invite?.Code) router.push('/score');
+  // },[userInfo])
 
   const closeModal = () => {
     setShowModal(false);
@@ -90,7 +109,7 @@ const Authenticate: React.FC<AuthnecateProps> = () => {
       </div>
       {showModal && (
         <Modal closeModal={closeModal}>
-          <AuthenticaionPopup closeModal={closeModal}/>
+          <AuthenticaionPopup closeModal={closeModal} />
         </Modal>
       )}
     </div>
@@ -102,44 +121,46 @@ export default Authenticate;
 type PageProps = {
   isAuthanticated: boolean;
   categories?: string;
-}
+};
 export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
   let authToken = context.req.headers.cookie;
-  authToken = authToken?.split("auth_token=")[1] ? `Bearer ${authToken?.split("auth_token=")[1]}`: "";
-
+  // authToken = authToken?.split("auth_token=")[1] ? authToken?.split("auth_token=")[1]: "";
+  // authToken = authToken ? `Bearer ${authToken}` : (context.query?.token ? `Bearer ${context.query?.token}`  : "")
+  authToken = authToken?.split("auth_token=")[1] ? `Bearer ${authToken?.split("auth_token=")[1]}` : "";
   let redirectLocation: string | null = "";
   try {
     const userInfo = await fetchUserInfo(authToken);
+    console.log(userInfo);
     const getDest = (): string | null => {
-      if(userInfo?.EthAddress && !userInfo?.Invite?.Code) return '/invite';
-      if(userInfo?.EthAddress && userInfo?.Invite?.Code) return '/score';
+      if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
+      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/score";
       return null;
-    }
-    redirectLocation =  getDest();
+    };
+    redirectLocation = getDest();
   } catch (error) {
-    const err = error as AxiosError
-    if(err?.response?.status === 401){
+    const err = error as AxiosError;
+    if (err?.response?.status === 401) {
       redirectLocation = null;
     }
   }
 
   const redirectConfig = {
     permanent: false,
-    destination: redirectLocation
-  }
+    destination: redirectLocation,
+  };
 
   const _props: PageProps = {
     isAuthanticated: true,
-    categories: "anshuhim"
-  }
+    categories: "anshuhim",
+  };
 
-
-  const returnValue = redirectLocation ? {
-    redirect: redirectConfig, 
-    props: _props 
-  }: {
-    props: _props 
-  }
-  return returnValue
+  const returnValue = redirectLocation
+    ? {
+        redirect: redirectConfig,
+        props: _props,
+      }
+    : {
+        props: _props,
+      };
+  return returnValue;
 };
-

@@ -4,6 +4,7 @@ import Button from "./Button";
 import { ethers } from "ethers";
 import { useAddAddress } from "@/hooks/mutations/useAddAddress";
 import { encryptWithAES } from "@/utils/crypto";
+import PreviewInput from "./PreviewInput";
 
 type SecureAccountProps = {
   password: string;
@@ -35,27 +36,22 @@ const SecureAccount: React.FC<SecureAccountProps> = ({ password, setScreenNumber
           <label htmlFor="password" className="text-secondryText inline-block mb-2 text-sm font-medium">
             password
           </label>
-          <input
+          {/* <input
             id="password"
             type="text"
             value={finaPassword}
             disabled
             className="bg-transparent border border-gray-300 text-sm rounded-lg focus:ring-slate-50 focus:border-white block w-full p-2.5"
             placeholder="enter password"
-          />
+          /> */}
+
+          <PreviewInput id="finalPassword" value={finaPassword} disabled/>
         </div>
         <div>
           <label htmlFor="password" className="text-secondryText inline-block mb-2 text-sm font-medium">
             private key
           </label>
-          <input
-            id="password"
-            type="text"
-            value={wallet?.privateKey}
-            className="bg-transparent border border-gray-300 text-sm rounded-lg focus:ring-slate-50 focus:border-white block w-full p-2.5"
-            placeholder="enter password"
-            disabled
-          />
+          <PreviewInput id="finalPassword" value={wallet?.privateKey} disabled/>
         </div>
         <p className="text-xs">I understand losing these means losing the ability to access my account.</p>
       </div>

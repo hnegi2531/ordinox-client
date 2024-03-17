@@ -9,9 +9,9 @@ import React, { useEffect, useState } from "react";
 const Discord = () => {
   const [otp, setOtp] = useState("");
 
-  useEffect(() => {
-    getUserGenerate();
-  }, [])
+  // useEffect(() => {
+  //   getUserGenerate();
+  // }, [])
   
 
   const {mutate: reedemInviteMutation} = useReedemInvite();

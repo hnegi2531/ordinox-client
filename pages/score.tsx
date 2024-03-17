@@ -46,7 +46,7 @@ const Score = () => {
               <span className="flex-1">points</span>
             </div>
             {tierData?.map((data) => (
-              <div className="flex items-center text-xs mb-5">
+              <div className="flex items-center text-xs mb-5" key={data.id}>
                 <span className="flex-1">{data.tier}</span>
                 <span className="flex-1">{data.friendsInvited}</span>
                 <span className="flex-1">{data.points}</span>

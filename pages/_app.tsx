@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
-  Cookies.set("auth_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxNzY4NjQ0NjY0NjAzODQ0NjA5IiwiaXNzIjoib3JkaW5veCIsInN1YiI6InR3aXR0ZXJhdXRoIiwiYXVkIjpbIm5vbmUiXSwiZXhwIjoxNzExMTk5MTQ3LCJuYmYiOjE3MTA1OTQzNDcsImlhdCI6MTcxMDU5NDM0NywianRpIjoiMTc2ODY0NDY2NDYwMzg0NDYwOSJ9.y-QKszR1D3IXIgt4QPHrG_fWtSOUQfUlK6vAqgBgWbo");
+  // Cookies.set("auth_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxNzY4NjQ0NjY0NjAzODQ0NjA5IiwiaXNzIjoib3JkaW5veCIsInN1YiI6InR3aXR0ZXJhdXRoIiwiYXVkIjpbIm5vbmUiXSwiZXhwIjoxNzExMjEwMDk0LCJuYmYiOjE3MTA2MDUyOTQsImlhdCI6MTcxMDYwNTI5NCwianRpIjoiMTc2ODY0NDY2NDYwMzg0NDYwOSJ9.b119NkJUQDkwm6MchmAI4PU3BsTqaeXeU_FJFf0PRNQ");
   return (
     <QueryClientProvider client={queryClient}>
       <Layout>

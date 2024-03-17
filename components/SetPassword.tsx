@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from "react";
 import Button from "./Button";
+import PasswordInput from "./PasswordInput";
 
 type SetPasswordProps = {
   password: string;
@@ -8,10 +9,9 @@ type SetPasswordProps = {
 };
 
 const SetPassword: React.FC<SetPasswordProps> = ({ password, setPassword, setScreenNumber }) => {
-
   const handlePasswordChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-  },[]);
+  }, []);
 
   return (
     <div className="flex-grow flex flex-col items-start justify-between">
@@ -21,14 +21,7 @@ const SetPassword: React.FC<SetPasswordProps> = ({ password, setPassword, setScr
           <label htmlFor="password" className="text-secondryText inline-block mb-2 text-sm font-medium">
             password
           </label>
-          <input
-            id="password"
-            type="text"
-            value={password}
-            onChange={handlePasswordChange}
-            className="bg-transparent border border-gray-300 text-sm rounded-lg focus:ring-brand-50 focus:border-brand-300 block w-full p-2.5"
-            placeholder="enter password"
-          />
+          <PasswordInput id="password" placeholder="enter password" value={password} onChangeHandler={handlePasswordChange} />
         </div>
         <p className="text-xs text-textWarning">
           your password can’t be reset after sign up. forgetting your password can lead to loss of funds.{" "}

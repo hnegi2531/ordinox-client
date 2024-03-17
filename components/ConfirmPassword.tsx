@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from "react";
 import Button from "./Button";
+import PasswordInput from "./PasswordInput";
 
 type SetPasswordProps = {
   password: string;
@@ -29,16 +30,9 @@ const ConfirmPassword: React.FC<SetPasswordProps> = ({ password, setScreenNumber
           <h1 className="font-semibold uppercase">Secure your wallet</h1>
           <div>
             <label htmlFor="confirm-password" className="text-secondryText inline-block mb-2 text-sm font-medium">
-              confirm password
+              confirm password  
             </label>
-            <input
-              id="confirm-password"
-              type="text"
-              value={confirmPassword}
-              onChange={confirmPasswordChange}
-              className="bg-transparent border border-gray-300 text-sm rounded-lg focus:ring-brand-50 focus:border-brand-300 block w-full p-2.5"
-              placeholder="confirm password"
-            />
+            <PasswordInput id="confirm-password" placeholder="confirm password" value={confirmPassword} onChangeHandler={confirmPasswordChange} />
           </div>
           <p className={`text-xs ${isMismatched ? "text-textWarning": "text-secondryText"}`}>{isMismatched ? "password mismatched please try again." : "please re-enter your password here to continue."}</p>
         </div>

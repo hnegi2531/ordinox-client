@@ -119,7 +119,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
   } catch (error) {
     const err = error as AxiosError
     if(err?.response?.status === 401){
-      redirectLocation = '/';
+      redirectLocation = null;
     }
   }
 

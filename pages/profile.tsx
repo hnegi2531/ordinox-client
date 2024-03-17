@@ -29,10 +29,10 @@ const Profile = () => {
       </div>
       <div className="flex-1 flex items-center justify-center">
 
-      <div className="flex flex-col items-center gap-4 p-4 border-2 border-brand-300">
+      <div className="flex flex-col items-center gap-4 p-4 border-2 border-brand-900">
         <h1 className="uppercase text-brand-300 text-xl font-semibold">your wallet address</h1>
         <div className="flex items-center justify-center">
-          <QRCode value="" size={200}/>
+          <QRCode value="" size={200} className="border-4 border-brand-900"/>
         </div>
 
         <span>asxasxasx</span>

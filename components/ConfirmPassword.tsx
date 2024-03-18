@@ -13,15 +13,15 @@ const ConfirmPassword: React.FC<SetPasswordProps> = ({ password, setScreenNumber
 
   const confirmPasswordChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(e.target.value);
-    if(e.target.value === ""){
-      setIsMismatched(false)
+    if (e.target.value === "") {
+      setIsMismatched(false);
     }
   }, []);
 
   const handleSetPassword = useCallback(() => {
-    if(password===confirmPassword) return setScreenNumber((prev) => prev + 1)
+    if (password === confirmPassword) return setScreenNumber((prev) => prev + 1);
     setIsMismatched(true);
-  },[password, confirmPassword])
+  }, [password, confirmPassword]);
 
   return (
     <React.Fragment>
@@ -30,11 +30,18 @@ const ConfirmPassword: React.FC<SetPasswordProps> = ({ password, setScreenNumber
           <h1 className="font-semibold uppercase">Secure your wallet</h1>
           <div>
             <label htmlFor="confirm-password" className="text-secondryText inline-block mb-2 text-sm font-medium">
-              confirm password  
+              confirm password
             </label>
-            <PasswordInput id="confirm-password" placeholder="confirm password" value={confirmPassword} onChangeHandler={confirmPasswordChange} />
+            <PasswordInput
+              id="confirm-password"
+              placeholder="confirm password"
+              value={confirmPassword}
+              onChangeHandler={confirmPasswordChange}
+            />
           </div>
-          <p className={`text-xs ${isMismatched ? "text-textWarning": "text-secondryText"}`}>{isMismatched ? "password mismatched please try again." : "please re-enter your password here to continue."}</p>
+          <p className={`text-xs ${isMismatched ? "text-textWarning" : "text-secondryText"}`}>
+            {isMismatched ? "password mismatched please try again." : "please re-enter your password here to continue."}
+          </p>
         </div>
         <div className="flex flex-row">
           <div className="flex-grow text-left">
@@ -49,7 +56,7 @@ const ConfirmPassword: React.FC<SetPasswordProps> = ({ password, setScreenNumber
           <div className="flex-grow text-right">
             <Button
               variant="secondary"
-              className="border-none uppercase py-0 md:py-0 px-0 text-verified disabled: bg-transparent"
+              className="border-none uppercase py-0 md:py-0 px-0"
               onClick={handleSetPassword}
               disabled={!confirmPassword}
             >

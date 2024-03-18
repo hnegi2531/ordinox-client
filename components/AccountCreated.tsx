@@ -1,12 +1,16 @@
 import React from 'react'
 import Button from './Button'
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useUserInfo } from '@/hooks/queries/useUser';
 
 type AccountCreatedProps = {
   setScreenNumber: (value: number | ((prevVar: number) => number)) => void;
 };
 
 const AccountCreated: React.FC<AccountCreatedProps>  = ({setScreenNumber}) => {
+
+  const {data:userInfo} = useUserInfo();
+
   return (
     <>
     <div className='flex-grow flex flex-col items-center justify-between'>

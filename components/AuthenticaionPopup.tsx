@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 import AccountCreated from "./AccountCreated";
@@ -12,13 +12,14 @@ import { AnimatePresence, motion } from "framer-motion";
 
 type AuthenticaionPopupProps = {
   closeModal: () => void;
+  isUserNameGenerated: boolean;
 };
 
-const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal }) => {
-  const [screenNumber, setScreenNumber] = useState<number>(0);
+const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isUserNameGenerated }) => {
+  const [screenNumber, setScreenNumber] = useState<number>(1);
   const [password, setPassword] = useState("");
   const router = useRouter();
-
+  
   const handleClose = () => {
     if (screenNumber === 5) router.push("/invite");
     closeModal();

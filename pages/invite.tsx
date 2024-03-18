@@ -1,4 +1,4 @@
-import { fetchUserInfo, getUserGenerate } from "@/apis/users";
+import { fetchUserInfo } from "@/apis/users";
 import Button from "@/components/Button";
 import OTPInput from "@/components/OTPInput";
 import { useReedemInvite } from "@/hooks/mutations/useAddAddress";
@@ -11,27 +11,29 @@ const Discord = () => {
 
   const router = useRouter();
 
-  const {mutate: reedemInviteMutation, isPending: reedemInviteMutationLoading } = useReedemInvite();
+  const { mutate: reedemInviteMutation, isPending: reedemInviteMutationLoading } = useReedemInvite();
 
   const handleOTPChange = (otp: string) => {
     setOtp(otp);
   };
 
   const handleInvite = () => {
-    console.log(otp.length)
-    reedemInviteMutation(otp.toString(),{
-      onSuccess: () =>{
+    console.log(otp.length);
+    reedemInviteMutation(otp.toString(), {
+      onSuccess: () => {
         router.push("/score");
-      }
+      },
     });
-  }
+  };
 
   return (
     <div className="flex items-center justify-center w-full h-full">
       <div className="max-w-lg flex flex-col gap-20">
         <div className="flex flex-col gap-6">
           <div>
-            <h1 className="text-3xl text-brand-300 text-center">{reedemInviteMutationLoading ? "validating invite code" : "enter invite code"}</h1>
+            <h1 className="text-3xl text-brand-300 text-center">
+              {reedemInviteMutationLoading ? "validating invite code" : "enter invite code"}
+            </h1>
           </div>
           <div className="max-w-md">
             <p className="text-sm text-center">
@@ -54,8 +56,10 @@ const Discord = () => {
         </div>
 
         <div className="w-full flex items-center justify-center text-center px-10">
-            <Button variant="primary" className="uppercase w-full" onClick={handleInvite}>redeem invite code</Button>
-          </div>
+          <Button variant="primary" className="uppercase w-full" onClick={handleInvite}>
+            redeem invite code
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -66,43 +70,44 @@ export default Discord;
 type PageProps = {
   isAuthanticated: boolean;
   categories?: string;
-}
+};
 export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
   let authToken = context.req.headers.cookie;
-  authToken = authToken?.split("auth_token=")[1] ? `Bearer ${authToken?.split("auth_token=")[1]}`: "";
+  authToken = authToken?.split("auth_token=")[1] ? `Bearer ${authToken?.split("auth_token=")[1]}` : "";
 
   let redirectLocation: string | null = "";
   try {
-    const userInfo = await fetchUserInfo(authToken);
+    let userInfo = await fetchUserInfo(authToken);
+    // userInfo = { ...userInfo, Invite: {} };
     const getDest = (): string | null => {
-      if(userInfo?.EthAddress && userInfo?.Invite?.Code) return '/score';
+      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/score";
       return null;
-    }
-    redirectLocation =  getDest();
+    };
+    redirectLocation = getDest();
   } catch (error) {
-    const err = error as AxiosError
-    if(err?.response?.status === 401){
-      redirectLocation = '/';
+    const err = error as AxiosError;
+    if (err?.response?.status === 401) {
+      redirectLocation = "/";
     }
   }
 
   const redirectConfig = {
     permanent: false,
-    destination: redirectLocation
-  }
+    destination: redirectLocation,
+  };
 
   const _props: PageProps = {
     isAuthanticated: true,
-    categories: "anshuhim"
-  }
+    categories: "anshuhim",
+  };
 
-
-  const returnValue = redirectLocation ? {
-    redirect: redirectConfig, 
-    props: _props 
-  }: {
-    props: _props 
-  }
-  return returnValue
+  const returnValue = redirectLocation
+    ? {
+        redirect: redirectConfig,
+        props: _props,
+      }
+    : {
+        props: _props,
+      };
+  return returnValue;
 };
-

@@ -39,33 +39,31 @@ const rounds = [
   },
 ];
 
-type AuthnecateProps = {};
+type AuthenticateProps = {};
 
-const Authenticate: React.FC<AuthnecateProps> = () => {
+const Authenticate: React.FC<AuthenticateProps> = () => {
   const [showModal, setShowModal] = useState(false);
-
+  const [isUsernameGenerated, setIsUserNameGenerated] = useState(false);
   const router = useRouter();
 
-  // const token =
-  // console.log(router.query?.token);
   useEffect(() => {
     (async () => {
       if (typeof router?.query?.token === "string") {
         Cookies.set("auth_token", router?.query?.token);
         localStorage.setItem("auth_token", router?.query?.token);
         const token = router?.query?.token ? `Bearer ${router?.query?.token}` : "";
-        const userInfo = await fetchUserInfo(token);
+        let userInfo = await fetchUserInfo(token);
+        // userInfo = { ...userInfo, Invite: {}, EthAddress: "" };
+        // userInfo = {...userInfo, Invite:{}}
+
         if (userInfo?.EthAddress && !userInfo?.Invite?.Code) router.push("/invite");
+
         if (userInfo?.EthAddress && userInfo?.Invite?.Code) router.push("/score");
+
+        if (!userInfo?.EthAddress && !userInfo?.Invite?.Code) setShowModal(true);
       }
     })();
   }, [router?.query?.token]);
-
-  // const{ data: userInfo } = useUserInfo();
-  // useEffect(() => {
-  //   if(userInfo?.EthAddress && !userInfo?.Invite?.Code) router.push('/invite');
-  //     if(userInfo?.EthAddress && userInfo?.Invite?.Code) router.push('/score');
-  // },[userInfo])
 
   const closeModal = () => {
     setShowModal(false);
@@ -81,7 +79,11 @@ const Authenticate: React.FC<AuthnecateProps> = () => {
             tokens
           </p>
           <div>
-            <Button variant="primary" className="uppercase" onClick={() => setShowModal(true)}>
+            <Button
+              variant="primary"
+              className="uppercase"
+              onClick={() => (window.location.href = "http://straddle.abstractly.in:7890/auth/twitter")}
+            >
               log in/sign up
             </Button>
           </div>
@@ -109,7 +111,7 @@ const Authenticate: React.FC<AuthnecateProps> = () => {
       </div>
       {showModal && (
         <Modal closeModal={closeModal}>
-          <AuthenticaionPopup closeModal={closeModal} />
+          <AuthenticaionPopup closeModal={closeModal} isUserNameGenerated={isUsernameGenerated} />
         </Modal>
       )}
     </div>
@@ -124,13 +126,10 @@ type PageProps = {
 };
 export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
   let authToken = context.req.headers.cookie;
-  // authToken = authToken?.split("auth_token=")[1] ? authToken?.split("auth_token=")[1]: "";
-  // authToken = authToken ? `Bearer ${authToken}` : (context.query?.token ? `Bearer ${context.query?.token}`  : "")
   authToken = authToken?.split("auth_token=")[1] ? `Bearer ${authToken?.split("auth_token=")[1]}` : "";
   let redirectLocation: string | null = "";
   try {
-    const userInfo = await fetchUserInfo(authToken);
-    console.log(userInfo);
+    let userInfo = await fetchUserInfo(authToken);
     const getDest = (): string | null => {
       if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
       if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/score";

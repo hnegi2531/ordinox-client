@@ -23,6 +23,8 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async function (config) {
+  const token = getAuthorizationHeader();
+  config.headers.Authorization = token;
   return config;
 });
 

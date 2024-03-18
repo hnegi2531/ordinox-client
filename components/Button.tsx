@@ -1,9 +1,6 @@
 import React, { FC, ReactNode } from "react";
 
-type DefaultButtonProps = React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->;
+type DefaultButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
 type ButtonProps = {
   children: ReactNode;
@@ -11,13 +8,7 @@ type ButtonProps = {
   variant?: "primary" | "secondary" | "tertiary";
 } & DefaultButtonProps;
 
-const Button: FC<ButtonProps> = ({
-  fullWidth = false,
-  children,
-  className,
-  variant = "primary",
-  ...buttonProps
-}) => {
+const Button: FC<ButtonProps> = ({ fullWidth = false, children, className, variant = "primary", ...buttonProps }) => {
   const fullWidthStyle = fullWidth ? "w-full" : "";
   const getVariant = () => {
     switch (variant) {
@@ -39,7 +30,8 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       {...buttonProps}
-      className={`font-spacemono font-bold py-2 md:py-3 px-6 select-none focus:outline-none text-sm ${fullWidthStyle} border rounded-sm disabled:bg-zinc-300 ${getVariant()} ${className}`}>
+      className={`font-spacemono font-bold py-2 md:py-3 px-6 select-none focus:outline-none text-sm ${fullWidthStyle} border rounded-sm  ${getVariant()} ${className}`}
+    >
       {children}
     </button>
   );

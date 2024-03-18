@@ -13,6 +13,11 @@ const SetPassword: React.FC<SetPasswordProps> = ({ password, setPassword, setScr
     setPassword(e.target.value);
   }, []);
 
+  const proceedHandler = () => {
+    if (!password) return;
+    setScreenNumber((prev) => prev + 1);
+  };
+
   return (
     <div className="flex-grow flex flex-col items-start justify-between">
       <div className="flex flex-col gap-4">
@@ -21,7 +26,12 @@ const SetPassword: React.FC<SetPasswordProps> = ({ password, setPassword, setScr
           <label htmlFor="password" className="text-secondryText inline-block mb-2 text-sm font-medium">
             password
           </label>
-          <PasswordInput id="password" placeholder="enter password" value={password} onChangeHandler={handlePasswordChange} />
+          <PasswordInput
+            id="password"
+            placeholder="enter password"
+            value={password}
+            onChangeHandler={handlePasswordChange}
+          />
         </div>
         <p className="text-xs text-textWarning">
           your password can’t be reset after sign up. forgetting your password can lead to loss of funds.{" "}
@@ -30,11 +40,7 @@ const SetPassword: React.FC<SetPasswordProps> = ({ password, setPassword, setScr
         <p className="text-xs text-textWarning">set a strong, memorable password</p>
       </div>
       <div className="text-left">
-        <Button
-          variant="secondary"
-          className="border-none uppercase py-0 md:py-0 px-0"
-          onClick={() => setScreenNumber((prev) => prev + 1)}
-        >
+        <Button variant="secondary" className="border-none uppercase py-0 md:py-0 px-0" onClick={proceedHandler}>
           Proceed
         </Button>
       </div>

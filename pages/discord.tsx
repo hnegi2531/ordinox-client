@@ -9,11 +9,7 @@ const Discord = () => {
     setOtp(otp);
   };
 
-  return (
-    <div className="flex items-center justify-center w-full h-full">
-      discord
-    </div>
-  );
+  return <div className="flex items-center justify-center w-full h-full">Comming Soon!</div>;
 };
 
 export default Discord;

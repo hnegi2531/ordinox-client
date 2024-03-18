@@ -25,20 +25,27 @@ const navLinks: NavLinkType[] = [
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState(0);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const router = useRouter();
   
-  useEffect(() => {
-    (async() => {
-      if(router?.pathname === "/score") {
-        const token = `Bearer ${Cookies.get("auth_token")}`
-        const userInfo = await fetchUserInfo(token);
-        console.log(userInfo)
-        setIsUserLoggedIn((userInfo?.EthAddress && userInfo?.Invite?.Code) ? true : false);
-        setActiveLink(1)
-      };
-    })()
-  }, [router?.pathname])
+  // useEffect(() => {
+  //   (async() => {
+  //     if(router?.pathname === "/score") {
+  //       const token = `Bearer ${Cookies.get("auth_token")}`
+  //       let userInfo = await fetchUserInfo(token);
+  //       userInfo = {...userInfo, Invite:{}}
+  //       console.log(userInfo)
+  //       setIsUserLoggedIn((userInfo?.EthAddress && userInfo?.Invite?.Code) ? true : false);
+  //       setActiveLink(1)
+  //     };
+  //   })()
+  // }, [router?.pathname])
+
+  const { data: userInfo } = useUserInfo();
+
+  const isUserLoggedIn = useMemo(() => {
+   return userInfo?.EthAddress && userInfo?.Invite?.Code ? true: false
+  }, [userInfo?.EthAddress, userInfo?.Invite?.Code])
 
   const handleLogoClick = useCallback(() => {
     setActiveLink(0);

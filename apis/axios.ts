@@ -10,7 +10,7 @@ export const getToken = (): string | null => {
 
 export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
 
-export const baseURL = "http://straddle.abstractly.in:7890";
+export const baseURL = "https://origins.abstractly.in";
 
 const axiosInstance = axios.create({
   baseURL,

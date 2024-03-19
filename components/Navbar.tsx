@@ -1,13 +1,8 @@
-import { fetchUserInfo, getUser } from "@/apis/users";
 import { useUserInfo } from "@/hooks/queries/useUser";
-// import { useUserInfo } from "@/hooks/queries/useUser";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Logo from "./Logo";
 import NavRoute from "./NavRoute";
-import Cookies from 'js-cookie';
-
 
 type NavLinkType = {
   id: number;
@@ -17,45 +12,31 @@ type NavLinkType = {
 };
 
 const navLinks: NavLinkType[] = [
-  { id: 1, text: "score", route: "/score", isPrivateRoute: true },
-  { id: 2, text: "leaderboard", route: "/leaderboard", isPrivateRoute: false },
-  { id: 3, text: "discord", route: "/discord", isPrivateRoute: false },
-  { id: 4, text: "profile", route: "/profile", isPrivateRoute: true },
+  { id: 1, text: "profile", route: "/profile", isPrivateRoute: true },
+  { id: 2, text: "score", route: "/score", isPrivateRoute: true },
+  { id: 3, text: "leaderboard", route: "/leaderboard", isPrivateRoute: false },
+  { id: 4, text: "discord", route: "/discord", isPrivateRoute: false },
 ];
 
 const Navbar = () => {
-  const [activeLink, setActiveLink] = useState(0);
-  // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
   const router = useRouter();
-  
-  // useEffect(() => {
-  //   (async() => {
-  //     if(router?.pathname === "/score") {
-  //       const token = `Bearer ${Cookies.get("auth_token")}`
-  //       let userInfo = await fetchUserInfo(token);
-  //       userInfo = {...userInfo, Invite:{}}
-  //       console.log(userInfo)
-  //       setIsUserLoggedIn((userInfo?.EthAddress && userInfo?.Invite?.Code) ? true : false);
-  //       setActiveLink(1)
-  //     };
-  //   })()
-  // }, [router?.pathname])
+
+  const currentRoute = router.pathname;
 
   const { data: userInfo } = useUserInfo();
 
   const isUserLoggedIn = useMemo(() => {
-   return userInfo?.EthAddress && userInfo?.Invite?.Code ? true: false
-  }, [userInfo?.EthAddress, userInfo?.Invite?.Code])
+    return userInfo?.EthAddress && userInfo?.Invite?.Code ? true : false;
+  }, [userInfo?.EthAddress, userInfo?.Invite?.Code]);
 
   const handleLogoClick = useCallback(() => {
-    setActiveLink(0);
     router.push("/");
   }, []);
 
-
   return (
     <nav className="px-20 py-10">
-      <div className="flex flex-row justify-between items-center bg-transparent">
+      <div className="flex flex-row items-center justify-between bg-transparent">
         <div onClick={handleLogoClick}>
           <Logo size="lg" />
         </div>
@@ -65,10 +46,15 @@ const Navbar = () => {
               <NavRoute
                 key={link.id}
                 route={link.route}
-                className={`text-xs transition-all duration-100 pb-1 select-none  ${activeLink === link.id ? "border-b border-secondryText" : ""} ${
-                  link.isPrivateRoute ? (isUserLoggedIn ? "visible" : "invisible") : "visible"
-                }`}
-                onClick={() => setActiveLink(link.id)}
+                className={`text-base hover:text-brand-300 transition-all duration-100 pb-1 select-none ${currentRoute === link.route
+                  ? "border-b text-brand-300 border-brand-300"
+                  : "text-white"
+                  } ${link.isPrivateRoute
+                    ? isUserLoggedIn
+                      ? ""
+                      : "hidden"
+                    : ""
+                  }`}
               >
                 {link.text}
               </NavRoute>

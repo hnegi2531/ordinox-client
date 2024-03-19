@@ -4,7 +4,6 @@ import { useUserInfo } from "@/hooks/queries/useUser";
 import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { GetServerSideProps } from "next";
-import { traceDeprecation } from "process";
 import Image from "next/image";
 import React from "react";
 const tierData = [
@@ -31,71 +30,71 @@ const Score = () => {
   };
 
   return (
-    <div className="h-full w-full flex flex-row items-center px-20">
-      <div className="flex-1 flex flex-col gap-10">
+    <div className="flex flex-row items-center w-full h-full px-20">
+      <div className="flex flex-col flex-1 gap-16">
         <div className="flex flex-col gap-4">
-          <h1 className="text-3xl text-brand-300">origins hq</h1>
-          <p className="text-sm">deposit funds and invite your friends to earn more points</p>
+          <h1 className="text-4xl text-brand-300">origins hq</h1>
+          <p className="text-lg font-light leading-5">deposit funds and invite your friends to earn more points</p>
         </div>
-        <div className="flex flex-row gap-8">
+        <div className="flex flex-row gap-8 font-semibold">
           <div className="flex flex-col gap-2">
-            <h4 className="text-sm text-brand-300 uppercase">points earned</h4>
-            <p className="text-3xl text-brand-300">910,130</p>
+            <h4 className="uppercase text-brand-300">points earned</h4>
+            <p className="text-3xl font-thin text-brand-300">910,130</p>
           </div>
           <div className="flex flex-col gap-2">
-            <h4 className="text-sm text-brand-300 uppercase">leaderboard rank</h4>
-            <p className="text-3xl text-brand-300">134</p>
+            <h4 className="uppercase text-brand-300">leaderboard rank</h4>
+            <p className="text-3xl font-thin text-brand-300">134</p>
           </div>
         </div>
         <div className="flex flex-col gap-3">
-          <h1 className="text-3xl text-brand-300 uppercase">your balance</h1>
-          <p className="text-3xl text-brand-300 uppercase">$0.00</p>
+          <h1 className="text-3xl font-semibold uppercase text-brand-300">your balance</h1>
+          <p className="text-3xl uppercase text-brand-300">$0.00</p>
         </div>
-        <div className="flex flex-col gap-3">
-          <div>
-            <span className="cursor-pointer select-none hover:text-brand-500 uppercase" onClick={generateCodeHandler}>
-              generate code
-            </span>
-          </div>
-          <div className="max-w-sm flex items-center gap-4 flex-wrap">
-            {userInfo?.Invites?.map((invite: Invite, index: number) => {
-              return (
-                <>
-                  <div className="relative">
-                    <div
-                      className={`text-sm ${
-                        invite?.IsUsed
+        <div className="flex flex-col max-w-lg gap-3">
+          <span className="self-end uppercase cursor-pointer select-none hover:text-brand-500" onClick={generateCodeHandler}>
+            generate code
+          </span>
+          <div className="flex flex-col max-w-lg gap-4 p-4 border">
+            <h3 className="text-xl text-brand-300">INVITE CODES</h3>
+            <div className="flex flex-wrap items-center gap-4">
+              {userInfo?.Invites?.map((invite: Invite, index: number) => {
+                return (
+                  <>
+                    <div className="relative">
+                      <div
+                        className={`text-lg ${invite?.IsUsed
                           ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
                           : ""
-                      }`}
-                    >
-                      {invite.Code}
-                    </div>
-                    {invite.IsUsed && (
-                      <div className="absolute inset-0">
-                        <div className="relative h-4 w-4"></div>
-                        <Image src="/i.png" alt="cut" layout="fill" />
+                          }`}
+                      >
+                        {invite.Code}
                       </div>
-                    )}
-                  </div>
-                </>
-              );
-            })}
+                      {invite.IsUsed && (
+                        <div className="absolute inset-0">
+                          <div className="relative w-4 h-4"></div>
+                          <Image src="/i.png" alt="cut" layout="fill" />
+                        </div>
+                      )}
+                    </div>
+                  </>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col gap-8">
-        <div className="flex flex-col gap-8 w-full">
-          <h1 className="text-sm text-brand-300">your tier</h1>
+      <div className="flex flex-col flex-1 gap-8">
+        <div className="flex flex-col w-full gap-8">
+          <h1 className="text-xl font-semibold uppercase text-brand-300">your tier</h1>
           <div className="flex flex-col gap-1">
-            <div className="flex items-center mb-5 text-xs text-brand-300 uppercase">
+            <div className="flex items-center mb-5 uppercase text-brand-300">
               <span className="flex-1">tier</span>
               <span className="flex-1">friends invited</span>
               <span className="flex-1">points</span>
             </div>
             {tierData?.map((data) => (
-              <div className="flex items-center text-xs mb-5" key={data.id}>
+              <div className="flex items-center mb-5 text-lg" key={data.id}>
                 <span className="flex-1">{data.tier}</span>
                 <span className="flex-1">{data.friendsInvited}</span>
                 <span className="flex-1">{data.points}</span>
@@ -104,7 +103,7 @@ const Score = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <span className="text-brand-300 uppercase">mystery box</span>
+          <span className="uppercase text-brand-300">mystery box</span>
           <span className="uppercase">open</span>
         </div>
       </div>
@@ -150,11 +149,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-        redirect: redirectConfig,
-        props: _props,
-      }
+      redirect: redirectConfig,
+      props: _props,
+    }
     : {
-        props: _props,
-      };
+      props: _props,
+    };
   return returnValue;
 };

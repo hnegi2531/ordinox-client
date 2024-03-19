@@ -14,35 +14,37 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex items-center justify-center h-full w-full">
-        <div className="flex flex-col items-center justify-center gap-8 mb-20 max-w-lg text-center">
+      <div className="flex items-center justify-center w-full h-full">
+        <div className="flex flex-col items-center justify-center max-w-4xl gap-8 mb-20 text-center">
           <div>
-            <h1 className="text-3xl text-brand-300 text-center">brdiging native liquidity seamlessly</h1>
+            <h1 className="text-5xl text-center text-brand-300">brdiging native liquidity seamlessly</h1>
           </div>
 
-          <div className="max-w-md">
-            <p className="text-sm">
+          <div className="max-w-lg">
+            <p className="font-light text-white">
               Ordinox facilitates a native cross-chain swap between ERC20 tokens and Bitcoin Inscriptions / Runes based
               tokens
             </p>
           </div>
 
           <div className="max-w-sm">
-            <Button variant="primary" className="uppercase w-full" onClick={() => router.push("/authenticate")}>
-              join early access
+            <Button variant="primary" className="flex items-center w-full gap-4 px-20 text-lg font-semibold uppercase font-poppins" onClick={() => router.push("/authenticate")}>
+              <span>join early access</span> <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.25 3.75V8.25M4.25 3.75H8.75M4.25 3.75L9.5 9M4.25 20.25V15.75M4.25 20.25H8.75M4.25 20.25L9.5 15M20.75 3.75H16.25M20.75 3.75V8.25M20.75 3.75L15.5 9M20.75 20.25H16.25M20.75 20.25V15.75M20.75 20.25L15.5 15" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
             </Button>
           </div>
         </div>
       </div>
 
-      <div className="absolute bottom-40 left-28 flex flex-col gap-6">
+      <div className="absolute flex flex-col gap-6 bottom-40 left-28">
         <div className="flex flex-col gap-2">
-          <h5 className="uppercase font-semibold text-red-500 text-sm">users</h5>
-          <p className="text-4xl text-white font-semibold tracking-wider">1095</p>
+          <h5 className="text-xl font-semibold text-red-500 uppercase font-poppins">users</h5>
+          <p className="text-6xl font-normal text-white">1095</p>
         </div>
         <div className="flex flex-col gap-2">
-          <h5 className="uppercase font-semibold text-red-500 text-sm">deposits</h5>
-          <p className="text-4xl text-white font-semibold tracking-wider">$10,455</p>
+          <h5 className="text-xl font-semibold text-red-500 uppercase font-poppins">deposits</h5>
+          <p className="text-6xl font-normal text-white">$10,455</p>
         </div>
       </div>
     </>
@@ -61,7 +63,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
   try {
     const userInfo = await fetchUserInfo(authToken);
     const getDest = (): string | null => {
-      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/score";
+      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/profile";
       if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
       return null;
     };
@@ -85,11 +87,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-        redirect: redirectConfig,
-        props: _props,
-      }
+      redirect: redirectConfig,
+      props: _props,
+    }
     : {
-        props: _props,
-      };
+      props: _props,
+    };
   return returnValue;
 };

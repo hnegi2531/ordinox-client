@@ -19,7 +19,7 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isU
   const [screenNumber, setScreenNumber] = useState<number>(1);
   const [password, setPassword] = useState("");
   const router = useRouter();
-  
+
   const handleClose = () => {
     if (screenNumber === 5) router.push("/invite");
     closeModal();
@@ -52,10 +52,10 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isU
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
-          className="h-[55%] w-80 relative bg-popUp px-6 py-4 flex flex-col bg-opacity-80 rounded-lg border border-gray-300 shadow-xl backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
+          className="h-[45%] w-96 relative bg-popUp px-8 py-8 flex flex-col bg-opacity-80 rounded-lg border border-gray-300 shadow-xl backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
         >
           <span onClick={handleClose} className="self-end cursor-pointer">
-            <IoMdCloseCircleOutline className="text-textWarning text-2xl" />
+            <IoMdCloseCircleOutline className="text-2xl text-textWarning" />
           </span>
           <AnimatePresence mode="wait">
             <motion.div
@@ -64,7 +64,7 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isU
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.2 }}
-              className="flex-grow flex flex-col"
+              className="flex flex-col flex-grow"
             >
               {getScreen()}
             </motion.div>

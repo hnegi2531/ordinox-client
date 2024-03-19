@@ -21,17 +21,17 @@ const Discord = () => {
     console.log(otp.length);
     reedemInviteMutation(otp.toString(), {
       onSuccess: () => {
-        router.push("/score");
+        router.push("/profile");
       },
     });
   };
 
   return (
     <div className="flex items-center justify-center w-full h-full">
-      <div className="max-w-lg flex flex-col gap-20">
+      <div className="flex flex-col max-w-lg gap-20">
         <div className="flex flex-col gap-6">
           <div>
-            <h1 className="text-3xl text-brand-300 text-center">
+            <h1 className="text-3xl text-center text-brand-300">
               {reedemInviteMutationLoading ? "validating invite code" : "enter invite code"}
             </h1>
           </div>
@@ -40,7 +40,7 @@ const Discord = () => {
               in order to deposit funds into your ordinox trading wallet and start earning points enter your invite code{" "}
             </p>
           </div>
-          <div className="flex items-center justify-center gap-2 w-full">
+          <div className="flex items-center justify-center w-full gap-2">
             <OTPInput
               inputStyle="bg-transparent text-center border w-8 rounded-md px-2 py-2"
               numInputs={6}
@@ -55,8 +55,8 @@ const Discord = () => {
           </div>
         </div>
 
-        <div className="w-full flex items-center justify-center text-center px-10">
-          <Button variant="primary" className="uppercase w-full" onClick={handleInvite}>
+        <div className="flex items-center justify-center w-full px-10 text-center">
+          <Button variant="primary" className="w-full uppercase" onClick={handleInvite}>
             redeem invite code
           </Button>
         </div>
@@ -80,7 +80,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
     let userInfo = await fetchUserInfo(authToken);
     // userInfo = { ...userInfo, Invite: {} };
     const getDest = (): string | null => {
-      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/score";
+      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/profile";
       return null;
     };
     redirectLocation = getDest();
@@ -103,11 +103,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-        redirect: redirectConfig,
-        props: _props,
-      }
+      redirect: redirectConfig,
+      props: _props,
+    }
     : {
-        props: _props,
-      };
+      props: _props,
+    };
   return returnValue;
 };

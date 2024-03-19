@@ -59,7 +59,6 @@ const Score = () => {
           </div>
           <div className="max-w-sm flex items-center gap-4 flex-wrap">
             {userInfo?.Invites?.map((invite: Invite, index: number) => {
-              index < 3 ? (invite.IsUsed = true) : (invite.IsUsed = false);
               return (
                 <>
                   <div className="relative">

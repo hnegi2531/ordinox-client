@@ -34,27 +34,25 @@ const Navbar = () => {
     router.push("/");
   }, []);
 
+
   return (
     <nav className="px-20 py-10">
       <div className="flex flex-row items-center justify-between bg-transparent">
-        <div onClick={handleLogoClick}>
+        <div className="cursor-pointer" onClick={handleLogoClick}>
           <Logo size="lg" />
         </div>
         <div className="flex flex-row gap-12">
           {navLinks.map((link) => {
+            const showLink = (link.isPrivateRoute && isUserLoggedIn) || !link.isPrivateRoute
+            const isActive = currentRoute === link.route
             return (
               <NavRoute
                 key={link.id}
                 route={link.route}
-                className={`text-base hover:text-brand-300 transition-all duration-100 pb-1 select-none ${currentRoute === link.route
+                className={`text-base hover:text-brand-300 transition-all duration-100 pb-1 select-none ${isActive
                   ? "border-b text-brand-300 border-brand-300"
                   : "text-white"
-                  } ${link.isPrivateRoute
-                    ? isUserLoggedIn
-                      ? ""
-                      : "hidden"
-                    : ""
-                  }`}
+                  } ${showLink ? 'flex' : 'hidden'}`}
               >
                 {link.text}
               </NavRoute>

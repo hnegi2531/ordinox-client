@@ -6,18 +6,27 @@ import { GetServerSideProps } from "next";
 import { baseURL } from "@/apis/axios";
 import { fetchUserInfo } from "@/apis/users";
 import { AxiosError } from "axios";
+import { useTypingText } from "../hooks/useTypingText";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const router = useRouter();
+  const { word } = useTypingText({
+    words: [
+      'bridging native liquidity seamlessly',
+      'native cross-chain swap',
+    ],
+    keySpeed: 60,
+    maxPauseAmount: 20,
+  })
 
   return (
     <>
       <div className="flex items-center justify-center w-full h-full">
-        <div className="flex flex-col items-center justify-center max-w-4xl gap-8 mb-20 text-center">
+        <div className="flex flex-col items-center justify-center max-w-6xl gap-8 mb-20 text-center">
           <div>
-            <h1 className="text-5xl text-center text-brand-300">brdiging native liquidity seamlessly</h1>
+            <h1 className="text-5xl text-center text-brand-300">{word}</h1>
           </div>
 
           <div className="max-w-lg">

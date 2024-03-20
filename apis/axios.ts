@@ -12,7 +12,7 @@ export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
 
 export const baseURL =
   process.env.NODE_ENV === "development"
-    ? "http://straddle.abstractly.in:7891/"
+    ? "http://straddle.abstractly.in:7891"
     : "https://origins.abstractly.in";
 
 const axiosInstance = axios.create({

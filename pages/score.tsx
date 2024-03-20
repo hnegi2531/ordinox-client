@@ -48,7 +48,7 @@ const Score = () => {
         </div>
         <div className="flex flex-col gap-3">
           <h1 className="text-3xl font-semibold uppercase text-brand-300">your balance</h1>
-          <p className="text-3xl uppercase text-brand-300">${userInfo?.LastUsdtBalance}</p>
+          <p className="text-3xl uppercase text-brand-300">${userInfo?.LastUsdtBalance ?? '0.00'}</p>
         </div>
         <div className="flex flex-col max-w-lg gap-3">
           <span className="self-end uppercase cursor-pointer select-none hover:text-brand-500" onClick={generateCodeHandler}>

@@ -10,6 +10,7 @@ import { fetchUserInfo } from "@/apis/users";
 import { GetServerSideProps } from "next";
 import Cookies from "js-cookie";
 import { twitterImageData } from "../utils/constants";
+import { baseURL } from "../apis/axios";
 
 const rounds = [
   {
@@ -83,7 +84,7 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
             <Button
               variant="primary"
               className="flex items-center gap-4 text-lg font-semibold uppercase bg-white font-poppins"
-              onClick={() => (window.location.href = "http://straddle.abstractly.in:7890/auth/twitter")}
+              onClick={() => (window.location.href = `${baseURL}/auth/twitter`)}
             >
               <span>log in / sign up</span> <img height={20} width={20} src={twitterImageData} />
             </Button>

@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import { baseURL } from "../apis/axios";
 
 type AuthenticateProps = {
   setScreenNumber: (value: number | ((prevVar: number) => number)) => void;
@@ -7,16 +8,16 @@ type AuthenticateProps = {
 
 const Authenticate: React.FC<AuthenticateProps> = ({ setScreenNumber }) => {
   return (
-    <div className="flex-grow flex flex-col items-center justify-center">
-     
+    <div className="flex flex-col items-center justify-center flex-grow">
 
-      <a 
-      href="http://straddle.abstractly.in:7890/auth/twitter" 
+
+      <a
+        href={`${baseURL}/auth/twitter`}
       // onClick={() => setScreenNumber((prev) => prev + 1)}
       >twitter</a>
 
       <button
-      onClick={() => setScreenNumber((prev) => prev + 1)}
+        onClick={() => setScreenNumber((prev) => prev + 1)}
       >twitterrr</button>
     </div>
   );

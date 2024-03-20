@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 export const getToken = (): string | null => {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     return localStorage.getItem("auth_token");
   } else {
     return null;
@@ -10,7 +10,10 @@ export const getToken = (): string | null => {
 
 export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
 
-export const baseURL = "https://origins.abstractly.in";
+export const baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://straddle.abstractly.in:7891/"
+    : "https://origins.abstractly.in";
 
 const axiosInstance = axios.create({
   baseURL,

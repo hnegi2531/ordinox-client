@@ -56,7 +56,9 @@ const Navbar = () => {
               </NavRoute>
             );
           })}
-          <Account />
+          {
+            isUserLoggedIn && <Account />
+          }
         </div>
       </div>
     </nav>

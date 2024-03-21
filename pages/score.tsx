@@ -3,6 +3,7 @@ import { useGenerateInviteCode } from "@/hooks/mutations/useGenerateInviteCode";
 import { useUserInfo } from "@/hooks/queries/useUser";
 import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { ethers } from "ethers";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import React from "react";
@@ -18,6 +19,9 @@ const Score = () => {
   const { mutate: generateInviteCodeMutation } = useGenerateInviteCode();
 
   const queryClient = useQueryClient();
+
+  const balance = ethers.formatEther(userInfo?.LastUsdtBalance || "0");
+
   const generateCodeHandler = () => {
     //@ts-ignore
     generateInviteCodeMutation(null, {
@@ -39,7 +43,7 @@ const Score = () => {
         <div className="flex flex-row gap-8 font-semibold">
           <div className="flex flex-col gap-2">
             <h4 className="uppercase text-brand-300">points earned</h4>
-            <p className="text-3xl font-thin text-brand-300">910,130</p>
+            <p className="text-3xl font-thin text-brand-300">{userInfo?.Points}</p>
           </div>
           <div className="flex flex-col gap-2">
             <h4 className="uppercase text-brand-300">leaderboard rank</h4>
@@ -48,7 +52,7 @@ const Score = () => {
         </div>
         <div className="flex flex-col gap-3">
           <h1 className="text-3xl font-semibold uppercase text-brand-300">your balance</h1>
-          <p className="text-3xl uppercase text-brand-300">${userInfo?.LastUsdtBalance ?? "0.00"}</p>
+          <p className="text-3xl uppercase text-brand-300">${balance}</p>
         </div>
         <div className="flex flex-col max-w-lg gap-3">
           <span

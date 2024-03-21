@@ -30,8 +30,10 @@ module.exports = {
         verified: "#00FFA3",
       },
       backgroundImage: {
-        paper: "url('/ordinox-bg.webp')",
+        // paper: "url('/ordinox-bg.webp'), url('/noise.png')",
+        paper: "url('/bg-home.webp')",
         ordinox: "url('/ordinox.webp')",
+        noiseImage: "url('/noise.png')",
         ordinoxScore: "url('/ordinox_score.webp')",
         "gradient-radial":
           "radial-gradient(rgba(0, 0, 0, 0.8), rgba(0,0,0,0.6), rgba(0, 0, 0, 0.8))",

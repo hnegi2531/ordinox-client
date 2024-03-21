@@ -31,7 +31,7 @@ const PreviewInput: React.FC<PreviewInputProps> = ({ value, className }) => {
       <button
         type="button"
         onClick={togglePasswordVisibility}
-        className="absolute left-0 inset-y-0 flex items-center px-3 text-secondryText"
+        className="absolute inset-y-0 left-0 flex items-center px-3 text-secondryText"
       >
         {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
       </button>
@@ -39,6 +39,7 @@ const PreviewInput: React.FC<PreviewInputProps> = ({ value, className }) => {
         ref={inputRef}
         type={showPassword ? "text" : "password"}
         value={value}
+        readOnly
         className={`bg-transparent pl-10 pr-10 py-2 shadow appearance-none border border-brand-300 text-sm text-secondryText rounded-lg block w-full leading-tight focus:outline-none focus:ring-brand-50 focus:border-brand-300 focus:shadow-outline ${className}`}
       />
       <button

@@ -11,8 +11,8 @@ const AccountCreated: React.FC<AccountCreatedProps> = ({ setScreenNumber }) => {
   const { data: userInfo } = useUserInfo();
   return (
     <>
-      <div className="flex-grow flex flex-col items-center justify-between gap-32">
-        <div className="text-center flex flex-col gap-4">
+      <div className="flex flex-col items-center justify-between flex-grow gap-32">
+        <div className="flex flex-col gap-4 text-center">
           <h1 className="font-semibold uppercase">Account Created</h1>
           <p>{userInfo?.Nickname}</p>
           <p className="text-sm text-secondryText">
@@ -22,7 +22,7 @@ const AccountCreated: React.FC<AccountCreatedProps> = ({ setScreenNumber }) => {
 
         <Button
           variant="secondary"
-          className="border-none uppercase flex items-center gap-2 font-bold py-0 md:py-0 px-0 text-secondryText hover:text-white"
+          className="flex items-center gap-2 px-0 py-0 font-bold uppercase border-none md:py-0 text-secondryText hover:text-white"
           onClick={() => setScreenNumber((prev) => prev + 1)}
         >
           <span>Secure Account</span>

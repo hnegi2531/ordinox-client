@@ -9,6 +9,7 @@ import ConfirmPassword from "./ConfirmPassword";
 import SecureAccount from "./SecureAccount";
 import SetPassword from "./SetPassword";
 import { AnimatePresence, motion } from "framer-motion";
+import Modal from "./Modal";
 
 type AuthenticaionPopupProps = {
   closeModal: () => void;
@@ -45,16 +46,16 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isU
   };
 
   return (
-    <React.Fragment>
+    <Modal closeModal={closeModal}>
       <AnimatePresence mode="wait">
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
-          className="max-h-fit w-96 relative bg-popUp px-8 py-8 flex flex-col bg-opacity-80 rounded-lg border border-gray-300 shadow-xl backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
+          className="relative flex flex-col px-8 py-8 border border-gray-300 rounded-lg shadow-xl max-h-fit w-96 bg-popUp bg-opacity-80 backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
         >
-          <span onClick={handleClose} className="absolute right-5 top-5 cursor-pointer">
+          <span onClick={handleClose} className="absolute cursor-pointer right-5 top-5">
             <IoMdCloseCircleOutline className="text-2xl text-textWarning" />
           </span>
           <AnimatePresence mode="wait">
@@ -71,7 +72,8 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isU
           </AnimatePresence>
         </motion.div>
       </AnimatePresence>
-    </React.Fragment>
+    </Modal>
+
   );
 };
 

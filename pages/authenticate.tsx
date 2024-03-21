@@ -1,9 +1,7 @@
 import AuthenticaionPopup from "@/components/AuthenticaionPopup";
 import Button from "@/components/Button";
-import Modal from "@/components/Modal";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { useUserInfo } from "@/hooks/queries/useUser";
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
 import { fetchUserInfo } from "@/apis/users";
@@ -55,8 +53,6 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
         localStorage.setItem("auth_token", router?.query?.token);
         const token = router?.query?.token ? `Bearer ${router?.query?.token}` : "";
         let userInfo = await fetchUserInfo(token);
-        // userInfo = { ...userInfo, Invite: {}, EthAddress: "" };
-        // userInfo = {...userInfo, Invite:{}}
 
         if (userInfo?.EthAddress && !userInfo?.Invite?.Code) router.push("/invite");
 
@@ -111,9 +107,8 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
         </div>
       </div>
       {showModal && (
-        <Modal closeModal={closeModal}>
-          <AuthenticaionPopup closeModal={closeModal} isUserNameGenerated={isUsernameGenerated} />
-        </Modal>
+
+        <AuthenticaionPopup closeModal={closeModal} isUserNameGenerated={isUsernameGenerated} />
       )}
     </div>
   );

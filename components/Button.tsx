@@ -15,10 +15,10 @@ const Button: FC<ButtonProps> = ({ fullWidth = false, children, className, varia
   const getVariant = () => {
     switch (variant) {
       case "primary": {
-        return "bg-brand-200  hover:bg-brand-300 active:bg-brand-200 border-brand-200 hover:border-brand-300 active:border-brand-200 text-black";
+        return "bg-brand-200  hover:bg-brand-300 active:bg-brand-200 border-brand-200 hover:border-brand-300 active:border-brand-200 text-black disabled:bg-gray-400 disabled:border-gray-400 disabled:text-gray-600 disabled:cursor-not-allowed";
       }
       case "secondary": {
-        return " bg-transparent text-white";
+        return " bg-transparent text-white disabled:text-gray-600 disabled:cursor-not-allowed";
       }
       case "tertiary": {
         return "text-black bg-grey-300 hover:bg-grey-400 active:bg-grey-500";
@@ -33,7 +33,9 @@ const Button: FC<ButtonProps> = ({ fullWidth = false, children, className, varia
     <button
       {...buttonProps}
       className={cn(
-        `font-spacemono font-bold py-2 md:py-3 px-12 select-none focus:outline-none text-sm ${fullWidthStyle} border rounded-sm ${getVariant()}`,
+        `font-spacemonofont-bold py-2 md:py-3 px-12 select-none focus:outline-none text-sm  border rounded-sm`,
+        fullWidthStyle,
+        getVariant(),
         className
       )}
     >

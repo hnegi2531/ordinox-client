@@ -39,7 +39,7 @@ export default function Home() {
           <div className="max-w-sm">
             <Button variant="primary" className="flex items-center w-full gap-4 px-20 text-lg font-semibold uppercase font-poppins" onClick={() => router.push("/authenticate")}>
               <span>join early access</span> <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.25 3.75V8.25M4.25 3.75H8.75M4.25 3.75L9.5 9M4.25 20.25V15.75M4.25 20.25H8.75M4.25 20.25L9.5 15M20.75 3.75H16.25M20.75 3.75V8.25M20.75 3.75L15.5 9M20.75 20.25H16.25M20.75 20.25V15.75M20.75 20.25L15.5 15" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M4.25 3.75V8.25M4.25 3.75H8.75M4.25 3.75L9.5 9M4.25 20.25V15.75M4.25 20.25H8.75M4.25 20.25L9.5 15M20.75 3.75H16.25M20.75 3.75V8.25M20.75 3.75L15.5 9M20.75 20.25H16.25M20.75 20.25V15.75M20.75 20.25L15.5 15" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Button>
           </div>

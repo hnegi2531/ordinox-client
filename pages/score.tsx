@@ -30,7 +30,7 @@ const Score = () => {
   };
 
   return (
-    <div className="flex flex-row items-center w-full h-full px-20">
+    <div className="flex flex-col items-center w-full h-full gap-8 px-20 md:flex-row">
       <div className="flex flex-col flex-1 gap-16">
         <div className="flex flex-col gap-4">
           <h1 className="text-4xl text-brand-300">origins hq</h1>
@@ -65,11 +65,10 @@ const Score = () => {
                   <>
                     <div className="relative">
                       <div
-                        className={`text-lg ${
-                          invite?.IsUsed
-                            ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
-                            : ""
-                        }`}
+                        className={`text-lg ${invite?.IsUsed
+                          ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
+                          : ""
+                          }`}
                       >
                         {invite.Code}
                       </div>
@@ -98,7 +97,7 @@ const Score = () => {
               <span className="flex-1">points</span>
             </div>
             {tierData?.map((data) => (
-              <div className="flex items-center mb-5 text-lg" key={data.id}>
+              <div className="flex items-center mb-5 text-lg text-gray-400" key={data.id}>
                 <span className="flex-1">{data.tier}</span>
                 <span className="flex-1">{data.friendsInvited}</span>
                 <span className="flex-1">{data.points}</span>
@@ -153,11 +152,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-        redirect: redirectConfig,
-        props: _props,
-      }
+      redirect: redirectConfig,
+      props: _props,
+    }
     : {
-        props: _props,
-      };
+      props: _props,
+    };
   return returnValue;
 };

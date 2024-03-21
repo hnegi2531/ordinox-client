@@ -40,7 +40,7 @@ const Profile = () => {
           <div>
             <Button
               variant="primary"
-              className="uppercase disabled:bg-gray-400"
+              className="uppercase"
               disabled={userInfo?.UnclaimedPoints ? false : true}
             >
               claim ordinox points
@@ -98,9 +98,9 @@ const Profile = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="h-[45%] w-96 relative bg-popUp px-8 py-8 flex flex-col bg-opacity-80 rounded-lg border border-gray-300 shadow-xl backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
+              className="relative flex flex-col px-8 py-8 border border-gray-300 rounded-lg shadow-xl max-h-fit w-96 bg-popUp bg-opacity-80 backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
             >
-              <span onClick={closeModal} className="self-end cursor-pointer">
+              <span onClick={closeModal} className="absolute cursor-pointer right-5 top-5">
                 <IoMdCloseCircleOutline className="text-2xl text-textWarning" />
               </span>
               <AnimatePresence mode="wait">
@@ -111,15 +111,10 @@ const Profile = () => {
                   transition={{ duration: 0.2 }}
                   className="flex flex-col flex-grow"
                 >
-                  <div className="flex flex-col flex-grow mt-5">
+                  <div className="flex flex-col flex-grow gap-32">
                     <div className="flex flex-col gap-6">
-                      <div>
-                        <h1 className="text-lg text-teal-100 uppercase">eligible tokens</h1>
-                      </div>
-
-                      <div>
-                        <p className="">we will track deposits made in usdt or eth only.</p>
-                      </div>
+                      <h1 className="text-lg text-teal-100 uppercase">eligible tokens</h1>
+                      <p className="">we will track deposits made in usdt only.</p>
                       <div className="flex flex-col gap-2">
                         <div className="flex flex-row items-center justify-between">
                           <div className="flex items-center gap-2">
@@ -130,16 +125,10 @@ const Profile = () => {
                             <CiShare1 />
                           </span>
                         </div>
-                        {/* <div className="flex flex-row items-center justify-between">
-                          <span className="text-xs">2. ETH</span>
-                          <span>
-                            <CiShare1 />
-                          </span>
-                        </div> */}
                       </div>
                     </div>
                     <div className="flex flex-row flex-grow">
-                      <p className="self-end">min balance to begin earning ordinox points is $10</p>
+                      <p className="self-end text-gray-400">min balance to begin earning ordinox points is $10</p>
                     </div>
                   </div>
                 </motion.div>
@@ -190,11 +179,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-        redirect: redirectConfig,
-        props: _props,
-      }
+      redirect: redirectConfig,
+      props: _props,
+    }
     : {
-        props: _props,
-      };
+      props: _props,
+    };
   return returnValue;
 };

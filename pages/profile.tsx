@@ -4,25 +4,33 @@ import Modal from "@/components/Modal";
 import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { GetServerSideProps } from "next";
-import React, { useMemo, useState } from "react";
+import React, { useRef, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import QRCode from "react-qr-code";
 import { CiShare1 } from "react-icons/ci";
 import { useUserInfo } from "../hooks/queries/useUser";
 import { shortenAddress } from "../utils/crypto";
-import { ethereumIcon, usdtIcon } from "../utils/constants";
+import { ethereumIcon, twitterImageData, usdtIcon } from "../utils/constants";
 import toast from "react-hot-toast";
 import { ethers } from "ethers";
+import { useClaimPoints } from "../hooks/mutations/useClaimPoints";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Profile = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showClaimModal, setShowClaimModal] = useState(false);
+  const unClaimedPoints = useRef(0)
   const { data: userInfo } = useUserInfo();
+  const queryClient = useQueryClient()
+  const { mutate: claimPointsMutation, isPending: claimPointsLoading } = useClaimPoints()
   const balance = ethers.formatEther(userInfo?.LastUsdtBalance || "0");
   const closeModal = () => {
     setShowModal(false);
   };
 
-  console.log(balance);
+  const closeClaimModal = () => {
+    setShowClaimModal(false);
+  }
 
   return (
     <div className="flex flex-row items-center w-full h-full px-20">
@@ -43,7 +51,17 @@ const Profile = () => {
             <Button
               variant="primary"
               className="uppercase"
-              disabled={userInfo?.UnclaimedPoints ? false : true}
+              loading={claimPointsLoading}
+              onClick={() => {
+                unClaimedPoints.current = userInfo?.UnclaimedPoints || 0;
+                claimPointsMutation({}, {
+                  onSuccess() {
+                    setShowClaimModal(true);
+                    queryClient.invalidateQueries({ queryKey: ['user'] })
+                  }
+                })
+              }}
+              disabled={userInfo?.UnclaimedPoints ? (claimPointsLoading ? true : false) : true}
             >
               claim ordinox points
             </Button>
@@ -131,6 +149,46 @@ const Profile = () => {
                     </div>
                     <div className="flex flex-row flex-grow">
                       <p className="self-end text-gray-400">min balance to begin earning ordinox points is $10</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+          </AnimatePresence>
+        </Modal>
+      )}
+
+      {showClaimModal && (
+        <Modal closeModal={closeClaimModal}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="relative flex flex-col px-8 py-8 border border-gray-300 rounded-lg shadow-xl max-h-fit w-96 bg-popUp bg-opacity-80 backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
+            >
+              <span onClick={closeClaimModal} className="absolute cursor-pointer right-5 top-5">
+                <IoMdCloseCircleOutline className="text-2xl text-textWarning" />
+              </span>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex flex-col flex-grow"
+                >
+                  <div className="flex flex-col flex-grow gap-10">
+                    <div className="flex flex-col gap-6">
+                      <h1 className="text-lg text-center text-teal-100 uppercase">Total Points Claimed</h1>
+                    </div>
+                    <div className="mb-10 text-center text-8xl">
+                      {unClaimedPoints.current}
+                    </div>
+                    <div className="flex items-center justify-center gap-4">
+                      <Button className="flex items-center gap-2 px-4 font-semibold font-poppins">Follow on <img src={twitterImageData} height={16} width={16} /></Button>
+                      <Button className="flex items-center gap-2 px-4 font-semibold font-poppins">Join Discord</Button>
                     </div>
                   </div>
                 </motion.div>

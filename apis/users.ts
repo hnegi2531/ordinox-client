@@ -66,7 +66,16 @@ export const addAddress = async (address: string): Promise<string> => {
       address,
     },
   });
-  // return res.data;
+};
+
+export const claimPoints = async (): Promise<string> => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  return await api.AXIOS({
+    url: `/user/claim`,
+    method: "post",
+    data: {},
+  });
 };
 
 export const reedemInvite = async (inviteCode: string): Promise<string> => {

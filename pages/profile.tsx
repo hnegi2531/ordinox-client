@@ -20,11 +20,11 @@ import { useRouter } from "next/router";
 const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [showClaimModal, setShowClaimModal] = useState(false);
-  const router = useRouter()
-  const unClaimedPoints = useRef(0)
+  const router = useRouter();
+  const unClaimedPoints = useRef(0);
   const { data: userInfo } = useUserInfo();
-  const queryClient = useQueryClient()
-  const { mutate: claimPointsMutation, isPending: claimPointsLoading } = useClaimPoints()
+  const queryClient = useQueryClient();
+  const { mutate: claimPointsMutation, isPending: claimPointsLoading } = useClaimPoints();
   const balance = ethers.formatEther(userInfo?.LastUsdtBalance || "0");
   const closeModal = () => {
     setShowModal(false);
@@ -32,14 +32,14 @@ const Profile = () => {
 
   const closeClaimModal = () => {
     setShowClaimModal(false);
-    router.push('/score')
-  }
+    router.push("/score");
+  };
 
   return (
     <div className="flex flex-row items-center w-full h-full px-20">
-      <div className="flex flex-col flex-1 gap-12">
-        <div className="flex flex-col max-w-xl gap-6">
-          <h1 className="text-4xl text-brand-300">fund account with USDT to earn ordinox points</h1>
+      <div className="flex flex-col flex-1 gap-12 tracking-tight">
+        <div className="flex flex-col max-w-xl gap-6 ">
+          <h1 className="text-4xl text-brand-300 tracking-tight">fund account with USDT to earn ordinox points</h1>
           <p className="">
             withdrawing your funds during phase 0 <span className="text-red-500">will reset your points.</span>
           </p>
@@ -57,12 +57,15 @@ const Profile = () => {
               loading={claimPointsLoading}
               onClick={() => {
                 unClaimedPoints.current = userInfo?.UnclaimedPoints || 0;
-                claimPointsMutation({}, {
-                  onSuccess() {
-                    setShowClaimModal(true);
-                    queryClient.invalidateQueries({ queryKey: ['user'] })
+                claimPointsMutation(
+                  {},
+                  {
+                    onSuccess() {
+                      setShowClaimModal(true);
+                      queryClient.invalidateQueries({ queryKey: ["user"] });
+                    },
                   }
-                })
+                );
               }}
               disabled={userInfo?.UnclaimedPoints ? (claimPointsLoading ? true : false) : true}
             >
@@ -80,7 +83,7 @@ const Profile = () => {
       <div className="flex items-center justify-center flex-1">
         <div className="flex flex-col items-center gap-4 p-8 border-2 border-brand-300">
           <h1 className="text-xl font-semibold uppercase text-brand-300">your wallet address</h1>
-          <div className="flex items-center just lify-center">
+          <div className="flex items-center justify-center">
             <QRCode value="" size={200} className="border-2" />
           </div>
 
@@ -186,11 +189,11 @@ const Profile = () => {
                     <div className="flex flex-col gap-6">
                       <h1 className="text-lg text-center text-teal-100 uppercase">Total Points Claimed</h1>
                     </div>
-                    <div className="mb-10 text-center text-8xl">
-                      {unClaimedPoints.current}
-                    </div>
+                    <div className="mb-10 text-center text-8xl">{unClaimedPoints.current}</div>
                     <div className="flex items-center justify-center gap-4">
-                      <Button className="flex items-center gap-2 px-4 font-semibold font-poppins">Follow on <img src={twitterImageData} height={16} width={16} /></Button>
+                      <Button className="flex items-center gap-2 px-4 font-semibold font-poppins">
+                        Follow on <img src={twitterImageData} height={16} width={16} />
+                      </Button>
                       <Button className="flex items-center gap-2 px-4 font-semibold font-poppins">Join Discord</Button>
                     </div>
                   </div>
@@ -216,10 +219,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   let redirectLocation: string | null = "";
   try {
-    const userInfo = await fetchUserInfo(authToken);
+    let userInfo = await fetchUserInfo(authToken);
+
     const getDest = (): string | null => {
       if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
-      if (!userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/authenticate";
+      if (!userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/login";
       return null;
     };
     redirectLocation = getDest();
@@ -242,11 +246,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-      redirect: redirectConfig,
-      props: _props,
-    }
+        redirect: redirectConfig,
+        props: _props,
+      }
     : {
-      props: _props,
-    };
+        props: _props,
+      };
   return returnValue;
 };

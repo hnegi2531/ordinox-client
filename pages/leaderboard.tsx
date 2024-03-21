@@ -38,7 +38,7 @@ const Leaderboard = () => {
           </div>
         </div>
         <div className="fixed h-full w-full left-0 right-0 bg-black bg-opacity-30 backdrop-blur-sm text-white flex justify-center items-center overflow-hidden">
-          Comming Soon!
+          Coming Soon!
         </div>
       </div>
     </>

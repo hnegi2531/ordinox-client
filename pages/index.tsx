@@ -37,7 +37,7 @@ export default function Home() {
             <Button
               variant="primary"
               className="flex items-center w-full gap-4 px-20 text-lg font-semibold uppercase font-poppins"
-              onClick={() => router.push("/authenticate")}
+              onClick={() => router.push("/login")}
             >
               <span>join early access</span>{" "}
               <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,10 +79,12 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
   let redirectLocation: string | null = "";
   try {
     let userInfo = await fetchUserInfo(authToken);
+
     // userInfo = { ...userInfo, EthAddress: "", Invite: { ...userInfo.Invite, Code: "" } };
     const getDest = (): string | null => {
       if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/profile";
       if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
+      // if (!userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/login";
       return null;
     };
     redirectLocation = getDest();

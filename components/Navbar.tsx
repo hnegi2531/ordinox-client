@@ -12,8 +12,8 @@ type NavLinkType = {
 };
 
 const navLinks: NavLinkType[] = [
-  { id: 1, text: "profile", route: "/profile", isPrivateRoute: true },
-  { id: 2, text: "earn", route: "/score", isPrivateRoute: true },
+  { id: 1, text: "earn", route: "/profile", isPrivateRoute: true },
+  { id: 2, text: "score", route: "/score", isPrivateRoute: true },
   { id: 3, text: "leaderboard", route: "/leaderboard", isPrivateRoute: false },
   { id: 4, text: "discord", route: "/discord", isPrivateRoute: false },
 ];
@@ -26,6 +26,7 @@ const Navbar = () => {
   const { data: userInfo } = useUserInfo();
 
   const isUserLoggedIn = useMemo(() => {
+    if (["/authenticate", "/", "/login", "/invite"].includes(router.pathname)) return false;
     return userInfo?.EthAddress && userInfo?.Invite?.Code ? true : false;
   }, [userInfo?.EthAddress, userInfo?.Invite?.Code]);
 

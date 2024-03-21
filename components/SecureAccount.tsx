@@ -1,10 +1,11 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Button from "./Button";
 
 import { ethers } from "ethers";
 import { useAddAddress } from "@/hooks/mutations/useAddAddress";
 import { encryptWithAES } from "@/utils/crypto";
 import PreviewInput from "./PreviewInput";
+import Checkbox from "./Checkbox";
 
 type SecureAccountProps = {
   password: string;
@@ -12,9 +13,10 @@ type SecureAccountProps = {
 };
 
 const SecureAccount: React.FC<SecureAccountProps> = ({ password, setScreenNumber }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
   const finaPassword = useMemo(() => password, [password]);
   const wallet = useMemo(() => ethers.Wallet.createRandom(), []);
-  // ethers.parseUnits
 
   const { mutate: addAddressMutation, isPending: addAddressLoading } = useAddAddress();
 
@@ -26,6 +28,10 @@ const SecureAccount: React.FC<SecureAccountProps> = ({ password, setScreenNumber
         setScreenNumber((prev) => prev + 1);
       },
     });
+  };
+
+  const checkBoxOnChangeHandler = () => {
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -45,14 +51,21 @@ const SecureAccount: React.FC<SecureAccountProps> = ({ password, setScreenNumber
           </label>
           <PreviewInput id="privateKey" value={wallet?.privateKey} disabled />
         </div>
-        <p className="text-xs">I understand losing these means losing the ability to access my account.</p>
+        <div className="flex flex-row items-center gap-2 mt-4">
+          <div className="flex items-center justify-center">
+            <Checkbox value={isChecked} onChange={checkBoxOnChangeHandler} />
+          </div>
+          <p className="text-xs select-none">
+            I understand losing these means losing the ability to access my account.
+          </p>
+        </div>
       </div>
       <div className="text-right">
         <Button
           variant="secondary"
           className="py-0 md:py-0 px-0 border-none text-right uppercase text-verified"
           onClick={handleContinue}
-          disabled={addAddressLoading}
+          disabled={addAddressLoading || !isChecked}
         >
           Continue
         </Button>

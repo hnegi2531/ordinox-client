@@ -84,7 +84,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
   let redirectLocation: string | null = "";
   try {
     let userInfo = await fetchUserInfo(authToken);
-    // userInfo = { ...userInfo, Invite: {} };
+    // userInfo = { ...userInfo, EthAddress: "", Invite: { ...userInfo.Invite, Code: "" } };
     const getDest = (): string | null => {
       if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/profile";
       return null;

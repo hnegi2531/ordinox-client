@@ -53,7 +53,7 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
         localStorage.setItem("auth_token", router?.query?.token);
         const token = router?.query?.token ? `Bearer ${router?.query?.token}` : "";
         let userInfo = await fetchUserInfo(token);
-
+        // userInfo = { ...userInfo, EthAddress: "", Invite: { ...userInfo.Invite, Code: "" } };
         if (userInfo?.EthAddress && !userInfo?.Invite?.Code) router.push("/invite");
 
         if (userInfo?.EthAddress && userInfo?.Invite?.Code) router.push("/profile");
@@ -92,24 +92,28 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
           {rounds.map((round) => (
             <div
               key={round.number}
-              className={`flex-1 flex flex-col gap-1 justify-end uppercase border-b-2 pb-4 ${round.isComplete ? "border-roundBorder" : ""
-                }`}
+              className={`flex-1 flex flex-col gap-1 justify-end uppercase border-b-2 pb-4 ${
+                round.isComplete ? "border-roundBorder" : ""
+              }`}
             >
               <div className="relative h-28 w-28">
                 <Image src={round.imageUrl} alt={`round-${round.number}`} layout="fill" />
               </div>
 
-              <span className={`text-sm font-poppins ${round.isComplete ? "text-white" : "text-gray-400"} font-extralight `}>{round.text1}</span>
+              <span
+                className={`text-sm font-poppins ${round.isComplete ? "text-white" : "text-gray-400"} font-extralight `}
+              >
+                {round.text1}
+              </span>
               <span className={`text-sm ${round.isComplete ? "text-green-400" : "text-gray-500"}`}>{round.text2}</span>
-              <span className={`text-sm font-bold ${round.isComplete ? "text-white" : "text-gray-300"}`}>{round.date}</span>
+              <span className={`text-sm font-bold ${round.isComplete ? "text-white" : "text-gray-300"}`}>
+                {round.date}
+              </span>
             </div>
           ))}
         </div>
       </div>
-      {showModal && (
-
-        <AuthenticaionPopup closeModal={closeModal} isUserNameGenerated={isUsernameGenerated} />
-      )}
+      {showModal && <AuthenticaionPopup closeModal={closeModal} isUserNameGenerated={isUsernameGenerated} />}
     </div>
   );
 };
@@ -151,11 +155,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-      redirect: redirectConfig,
-      props: _props,
-    }
+        redirect: redirectConfig,
+        props: _props,
+      }
     : {
-      props: _props,
-    };
+        props: _props,
+      };
   return returnValue;
 };

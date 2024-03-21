@@ -6,6 +6,10 @@
 @tailwind components;
 @tailwind utilities;
 
+#confirm-checkbox:checked ~ .check-1 {
+  @apply text-opacity-100;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

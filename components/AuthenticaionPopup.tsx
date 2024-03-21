@@ -73,7 +73,6 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isU
         </motion.div>
       </AnimatePresence>
     </Modal>
-
   );
 };
 

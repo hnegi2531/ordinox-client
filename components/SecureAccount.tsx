@@ -14,6 +14,7 @@ type SecureAccountProps = {
 const SecureAccount: React.FC<SecureAccountProps> = ({ password, setScreenNumber }) => {
   const finaPassword = useMemo(() => password, [password]);
   const wallet = useMemo(() => ethers.Wallet.createRandom(), []);
+  // ethers.parseUnits
 
   const { mutate: addAddressMutation, isPending: addAddressLoading } = useAddAddress();
 
@@ -28,30 +29,21 @@ const SecureAccount: React.FC<SecureAccountProps> = ({ password, setScreenNumber
   };
 
   return (
-    <div className="flex-grow flex flex-col items-stretch justify-between">
+    <div className="flex-grow flex flex-col items-stretch justify-between gap-10">
       <div className="flex flex-col gap-3">
         <h1 className="uppercase font-semibold">secure your account</h1>
         <p className="text-xs text-secondryText">store your password and private key somewhere safe.</p>
         <div>
-          <label htmlFor="password" className="text-secondryText inline-block mb-2 text-sm font-medium">
+          <label htmlFor="finalPassword" className="text-secondryText inline-block mb-2 text-sm font-medium">
             password
           </label>
-          {/* <input
-            id="password"
-            type="text"
-            value={finaPassword}
-            disabled
-            className="bg-transparent border border-gray-300 text-sm rounded-lg focus:ring-slate-50 focus:border-white block w-full p-2.5"
-            placeholder="enter password"
-          /> */}
-
-          <PreviewInput id="finalPassword" value={finaPassword} disabled/>
+          <PreviewInput id="finalPassword" value={finaPassword} disabled />
         </div>
         <div>
-          <label htmlFor="password" className="text-secondryText inline-block mb-2 text-sm font-medium">
+          <label htmlFor="privateKey" className="text-secondryText inline-block mb-2 text-sm font-medium">
             private key
           </label>
-          <PreviewInput id="finalPassword" value={wallet?.privateKey} disabled/>
+          <PreviewInput id="privateKey" value={wallet?.privateKey} disabled />
         </div>
         <p className="text-xs">I understand losing these means losing the ability to access my account.</p>
       </div>

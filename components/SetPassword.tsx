@@ -19,7 +19,7 @@ const SetPassword: React.FC<SetPasswordProps> = ({ password, setPassword, setScr
   };
 
   return (
-    <div className="flex-grow flex flex-col items-start justify-between">
+    <div className="flex-grow flex flex-col items-stretch justify-between gap-28">
       <div className="flex flex-col gap-4">
         <h1 className="font-semibold uppercase">Secure your wallet</h1>
         <div>
@@ -39,8 +39,13 @@ const SetPassword: React.FC<SetPasswordProps> = ({ password, setPassword, setScr
 
         <p className="text-xs text-textWarning">set a strong, memorable password</p>
       </div>
-      <div className="text-left">
-        <Button variant="secondary" className="border-none uppercase py-0 md:py-0 px-0" onClick={proceedHandler}>
+      <div className="text-right flex-grow">
+        <Button
+          variant="secondary"
+          className="border-none uppercase py-0 md:py-0 px-0 text-secondryText hover:text-white disabled:text-gray-500"
+          onClick={proceedHandler}
+          disabled={password ? false : true}
+        >
           Proceed
         </Button>
       </div>

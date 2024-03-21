@@ -1,3 +1,4 @@
+import { cn } from "@/utils/twMerge.helper";
 import React, { FC, ReactNode } from "react";
 
 type DefaultButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
@@ -6,6 +7,7 @@ type ButtonProps = {
   children: ReactNode;
   fullWidth?: boolean;
   variant?: "primary" | "secondary" | "tertiary";
+  className?: string;
 } & DefaultButtonProps;
 
 const Button: FC<ButtonProps> = ({ fullWidth = false, children, className, variant = "primary", ...buttonProps }) => {
@@ -30,7 +32,10 @@ const Button: FC<ButtonProps> = ({ fullWidth = false, children, className, varia
   return (
     <button
       {...buttonProps}
-      className={`font-spacemono font-bold py-2 md:py-3 px-12 select-none focus:outline-none text-sm ${fullWidthStyle} border rounded-sm ${getVariant()} ${className}`}
+      className={cn(
+        `font-spacemono font-bold py-2 md:py-3 px-12 select-none focus:outline-none text-sm ${fullWidthStyle} border rounded-sm ${getVariant()}`,
+        className
+      )}
     >
       {children}
     </button>

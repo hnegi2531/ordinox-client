@@ -52,9 +52,9 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isU
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
-          className="h-[45%] w-96 relative bg-popUp px-8 py-8 flex flex-col bg-opacity-80 rounded-lg border border-gray-300 shadow-xl backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
+          className="max-h-fit w-96 relative bg-popUp px-8 py-8 flex flex-col bg-opacity-80 rounded-lg border border-gray-300 shadow-xl backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
         >
-          <span onClick={handleClose} className="self-end cursor-pointer">
+          <span onClick={handleClose} className="absolute right-5 top-5 cursor-pointer">
             <IoMdCloseCircleOutline className="text-2xl text-textWarning" />
           </span>
           <AnimatePresence mode="wait">

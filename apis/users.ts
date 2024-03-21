@@ -3,23 +3,29 @@ import { api, baseURL } from "./axios";
 
 export interface UserInfoType {
   CreatedAt: string;
+  Nickname: string;
+  TwitterHandle: string;
   Username: string;
   Email: string;
   Userid: string;
   ImgUrl: string;
   Points: number;
+  UnclaimedPoints: number;
   IsVerified: boolean;
   VerifiedAt: string;
   EthAddress: string;
   EthAddressGeneratedAt: string;
-  Invite: any;
+  Invite: Invite;
   UsedInviteUsername: string;
+  UsedInviteCodeID: number;
   InviteUsedAt: string;
   Invites: any[];
+  HasAppliedInvite: boolean;
   PointsHistory: any[];
-  LastEthBalance: number;
-  LastUsdtBalance: number;
+  LastEthBalance: string;
+  LastUsdtBalance: string;
   LoggedInAt: string;
+  HasDeposited: boolean;
 }
 
 export interface Invite {

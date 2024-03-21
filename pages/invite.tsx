@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 const Discord = () => {
   const [otp, setOtp] = useState("");
 
@@ -18,10 +19,16 @@ const Discord = () => {
   };
 
   const handleInvite = () => {
-    console.log(otp.length);
+    if (otp.length < 6) {
+      toast.error("Invlid invite code!");
+      return;
+    }
     reedemInviteMutation(otp.toString(), {
       onSuccess: () => {
         router.push("/profile");
+      },
+      onError: () => {
+        toast.error("Invlid invite code!");
       },
     });
   };
@@ -31,9 +38,7 @@ const Discord = () => {
       <div className="flex flex-col max-w-lg gap-20">
         <div className="flex flex-col gap-6">
           <div>
-            <h1 className="text-3xl text-center text-brand-300">
-              {reedemInviteMutationLoading ? "validating invite code" : "enter invite code"}
-            </h1>
+            <h1 className="text-3xl text-center text-brand-300">enter invite code</h1>
           </div>
           <div className="max-w-md">
             <p className="text-sm text-center">
@@ -58,6 +63,7 @@ const Discord = () => {
         <div className="flex items-center justify-center w-full px-10 text-center">
           <Button variant="primary" className="w-full uppercase" onClick={handleInvite}>
             redeem invite code
+            {/* <span><Image ></span> */}
           </Button>
         </div>
       </div>
@@ -103,11 +109,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-      redirect: redirectConfig,
-      props: _props,
-    }
+        redirect: redirectConfig,
+        props: _props,
+      }
     : {
-      props: _props,
-    };
+        props: _props,
+      };
   return returnValue;
 };

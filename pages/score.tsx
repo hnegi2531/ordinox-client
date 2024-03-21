@@ -43,15 +43,18 @@ const Score = () => {
           </div>
           <div className="flex flex-col gap-2">
             <h4 className="uppercase text-brand-300">leaderboard rank</h4>
-            <p className="text-3xl font-thin text-brand-300">134</p>
+            <p className="text-3xl font-thin text-brand-300">134th</p>
           </div>
         </div>
         <div className="flex flex-col gap-3">
           <h1 className="text-3xl font-semibold uppercase text-brand-300">your balance</h1>
-          <p className="text-3xl uppercase text-brand-300">${userInfo?.LastUsdtBalance ?? '0.00'}</p>
+          <p className="text-3xl uppercase text-brand-300">${userInfo?.LastUsdtBalance ?? "0.00"}</p>
         </div>
         <div className="flex flex-col max-w-lg gap-3">
-          <span className="self-end uppercase cursor-pointer select-none hover:text-brand-500" onClick={generateCodeHandler}>
+          <span
+            className="self-end uppercase cursor-pointer select-none hover:text-brand-500"
+            onClick={generateCodeHandler}
+          >
             generate code
           </span>
           <div className="flex flex-col max-w-lg gap-4 p-4 border">
@@ -62,10 +65,11 @@ const Score = () => {
                   <>
                     <div className="relative">
                       <div
-                        className={`text-lg ${invite?.IsUsed
-                          ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
-                          : ""
-                          }`}
+                        className={`text-lg ${
+                          invite?.IsUsed
+                            ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
+                            : ""
+                        }`}
                       >
                         {invite.Code}
                       </div>
@@ -103,8 +107,8 @@ const Score = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <span className="uppercase text-brand-300">mystery box</span>
-          <span className="uppercase">open</span>
+          {/* <span className="uppercase text-brand-300">mystery box</span>
+          <span className="uppercase">open</span> */}
         </div>
       </div>
     </div>
@@ -149,11 +153,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-      redirect: redirectConfig,
-      props: _props,
-    }
+        redirect: redirectConfig,
+        props: _props,
+      }
     : {
-      props: _props,
-    };
+        props: _props,
+      };
   return returnValue;
 };

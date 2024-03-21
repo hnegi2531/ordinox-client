@@ -17,10 +17,12 @@ import { ethers } from "ethers";
 const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const { data: userInfo } = useUserInfo();
-  // const balance = useMemo(() => ethers.(userInfo?.LastEthBalance ?? "0"), [userInfo?.LastEthBalance]);
+  const balance = ethers.formatEther(userInfo?.LastUsdtBalance || "0");
   const closeModal = () => {
     setShowModal(false);
   };
+
+  console.log(balance);
 
   return (
     <div className="flex flex-row items-center w-full h-full px-20">
@@ -35,7 +37,7 @@ const Profile = () => {
         </div>
         <div className="flex flex-col max-w-md gap-4">
           <h1 className="text-2xl font-bold uppercase text-brand-300">your balance</h1>
-          <h1 className="text-3xl font-normal text-brand-300">${userInfo?.LastUsdtBalance ?? "0.00"}</h1>
+          <h1 className="text-3xl font-normal text-brand-300">${balance}</h1>
           <p className="text-sm">balance will update every ~10 mins </p>
           <div>
             <Button

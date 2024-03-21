@@ -7,6 +7,7 @@ import { ethers } from "ethers";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import React from "react";
+import toast from "react-hot-toast";
 const tierData = [
   { id: 1, tier: "crawler", friendsInvited: "1-6", points: "150 + 6% points" },
   { id: 2, tier: "walker", friendsInvited: "6-10", points: "300 + 8% points" },
@@ -23,7 +24,11 @@ const Score = () => {
   const balance = ethers.formatEther(userInfo?.LastUsdtBalance || "0");
 
   const generateCodeHandler = () => {
-    //@ts-ignore
+    if (userInfo?.Invites && userInfo?.Invites.length > 19) {
+      toast.error('Maximum 20 invite codes limit reached');
+      return;
+    }
+    // @ts-ignore
     generateInviteCodeMutation(null, {
       onSuccess: () => {
         queryClient.invalidateQueries({
@@ -109,10 +114,10 @@ const Score = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-col gap-4">
-          {/* <span className="uppercase text-brand-300">mystery box</span>
-          <span className="uppercase">open</span> */}
-        </div>
+        {/* <div className="flex flex-col gap-4">
+          <span className="uppercase text-brand-300">mystery box</span>
+          <span className="uppercase">open</span>
+        </div> */}
       </div>
     </div>
   );

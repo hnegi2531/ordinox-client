@@ -15,10 +15,12 @@ import toast from "react-hot-toast";
 import { ethers } from "ethers";
 import { useClaimPoints } from "../hooks/mutations/useClaimPoints";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 
 const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [showClaimModal, setShowClaimModal] = useState(false);
+  const router = useRouter()
   const unClaimedPoints = useRef(0)
   const { data: userInfo } = useUserInfo();
   const queryClient = useQueryClient()
@@ -30,6 +32,7 @@ const Profile = () => {
 
   const closeClaimModal = () => {
     setShowClaimModal(false);
+    router.push('/score')
   }
 
   return (

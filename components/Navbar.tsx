@@ -29,7 +29,7 @@ const Navbar = () => {
   const isUserLoggedIn = useMemo(() => {
     if (["/authenticate", "/", "/login", "/invite"].includes(router.pathname)) return false;
     return userInfo?.EthAddress && userInfo?.Invite?.Code ? true : false;
-  }, [userInfo?.EthAddress, userInfo?.Invite?.Code]);
+  }, [userInfo?.EthAddress, userInfo?.Invite?.Code, router.pathname]);
 
   const handleLogoClick = useCallback(() => {
     router.push("/");

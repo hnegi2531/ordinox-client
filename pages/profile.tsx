@@ -40,7 +40,7 @@ const Profile = () => {
     <div className="flex flex-row items-center w-full h-full px-20">
       <div className="flex flex-col flex-1 gap-12 tracking-tight">
         <div className="flex flex-col max-w-xl gap-6 ">
-          <h1 className="text-4xl text-brand-300 tracking-tight">fund account with USDT to earn ordinox points</h1>
+          <h1 className="text-4xl tracking-tight text-brand-300">fund account with USDT to earn ordinox points</h1>
           <p className="">
             withdrawing your funds during <span className="font-bold text-white"> round 0</span> <span className="text-red-500">will reset your points.</span>
           </p>
@@ -90,7 +90,7 @@ const Profile = () => {
         <div className="flex flex-col items-center gap-4 p-8 border-2 border-brand-300">
           <h1 className="text-xl font-semibold uppercase text-brand-300">your wallet address</h1>
           <div className="flex items-center justify-center">
-            <QRCode value="" size={200} className="border-2" />
+            <QRCode value={`ethereum:${userInfo?.EthAddress}`} size={200} className="border-2" />
           </div>
 
           <div className="flex items-center gap-2">
@@ -252,11 +252,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-        redirect: redirectConfig,
-        props: _props,
-      }
+      redirect: redirectConfig,
+      props: _props,
+    }
     : {
-        props: _props,
-      };
+      props: _props,
+    };
   return returnValue;
 };

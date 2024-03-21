@@ -16,6 +16,7 @@ import { ethers } from "ethers";
 import { useClaimPoints } from "../hooks/mutations/useClaimPoints";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import Refersh from "../components/Refersh";
 
 const Profile = () => {
   const [showModal, setShowModal] = useState(false);
@@ -41,13 +42,18 @@ const Profile = () => {
         <div className="flex flex-col max-w-xl gap-6">
           <h1 className="text-4xl text-brand-300">fund account with USDT to earn ordinox points</h1>
           <p className="">
-            withdrawing your funds during phase 0 <span className="text-red-500">will reset your points.</span>
+            withdrawing your funds during <span className="font-bold text-white"> round 0</span> <span className="text-red-500">will reset your points.</span>
           </p>
-          <p className="">points will be redeemable in phase 2</p>
+          <p className="">points will be redeemable in <span className="font-bold text-white">round 2</span></p>
           <p className="mt-4 text-red-500">MIN BALANCE $10</p>
         </div>
         <div className="flex flex-col max-w-md gap-4">
-          <h1 className="text-2xl font-bold uppercase text-brand-300">your balance</h1>
+          <div className="flex flex-row items-center gap-4">
+            <h1 className="text-2xl font-bold uppercase text-brand-300">your balance</h1>
+            <div className="text-gray-400 cursor-pointer hover:text-gray-300">
+              <Refersh />
+            </div>
+          </div>
           <h1 className="text-3xl font-normal text-brand-300">${balance}</h1>
           <p className="text-sm">balance will update every ~10 mins </p>
           <div>

@@ -26,6 +26,7 @@ export interface UserInfoType {
   LastUsdtBalance: string;
   LoggedInAt: string;
   HasDeposited: boolean;
+  Tier: string;
 }
 
 export interface Invite {

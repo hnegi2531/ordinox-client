@@ -8,6 +8,7 @@ import { GetServerSideProps } from "next";
 import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
+import Refersh from "../components/Refersh";
 const tierData = [
   { id: 1, tier: "crawler", friendsInvited: "1-6", points: "150 + 6% points" },
   { id: 2, tier: "walker", friendsInvited: "6-10", points: "300 + 8% points" },
@@ -52,11 +53,16 @@ const Score = () => {
           </div>
           <div className="flex flex-col gap-2">
             <h4 className="uppercase text-brand-300">leaderboard rank</h4>
-            <p className="text-3xl font-thin text-brand-300">134th</p>
+            <p className="text-3xl font-thin text-brand-300">N/A</p>
           </div>
         </div>
         <div className="flex flex-col gap-3">
-          <h1 className="text-3xl font-semibold uppercase text-brand-300">your balance</h1>
+          <div className="flex flex-row items-center gap-4">
+            <h1 className="text-2xl font-bold uppercase text-brand-300">your balance</h1>
+            <div className="text-gray-400 cursor-pointer hover:text-gray-300">
+              <Refersh />
+            </div>
+          </div>
           <p className="text-3xl uppercase text-brand-300">${balance}</p>
         </div>
         <div className="flex flex-col max-w-lg gap-3">
@@ -69,26 +75,24 @@ const Score = () => {
           <div className="flex flex-col max-w-lg gap-4 p-4 border">
             <h3 className="text-xl text-brand-300">INVITE CODES</h3>
             <div className="flex flex-wrap items-center gap-4">
-              {userInfo?.Invites?.map((invite: Invite, index: number) => {
+              {userInfo?.Invites?.map((invite: Invite) => {
                 return (
-                  <>
-                    <div className="relative">
-                      <div
-                        className={`text-lg ${invite?.IsUsed
-                          ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
-                          : ""
-                          }`}
-                      >
-                        {invite.Code}
-                      </div>
-                      {invite.IsUsed && (
-                        <div className="absolute inset-0">
-                          <div className="relative w-4 h-4"></div>
-                          <Image src="/i.png" alt="cut" layout="fill" />
-                        </div>
-                      )}
+                  <div key={invite.ID} className="relative">
+                    <div
+                      className={`text-lg ${invite?.IsUsed
+                        ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
+                        : ""
+                        }`}
+                    >
+                      {invite.Code}
                     </div>
-                  </>
+                    {invite.IsUsed && (
+                      <div className="absolute inset-0">
+                        <div className="relative w-4 h-4"></div>
+                        <Image src="/i.png" alt="cut" layout="fill" />
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </div>
@@ -98,7 +102,10 @@ const Score = () => {
 
       <div className="flex flex-col flex-1 gap-8">
         <div className="flex flex-col w-full gap-8">
-          <h1 className="text-xl font-semibold uppercase text-brand-300">your tier</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-semibold uppercase text-brand-300">your tier -</h1>
+            <h1 className="text-xl text-green-300 lowercase">{userInfo?.Tier}</h1>
+          </div>
           <div className="flex flex-col gap-1">
             <div className="flex items-center mb-5 uppercase text-brand-300">
               <span className="flex-1">tier</span>

@@ -4,7 +4,7 @@ import React from "react";
 const Leaderboard = () => {
   return (
     <>
-      <div className="flex flex-col h-full gap-8 px-20 relative">
+      <div className="relative flex flex-col h-full gap-8 px-20">
         <div className="flex flex-col h-full gap-2">
           <h1 className="text-4xl text-brand-300">leaderboard</h1>
           <p className="text-lg">deposit funds and invite your friends to earn more points</p>
@@ -37,8 +37,8 @@ const Leaderboard = () => {
             </div>
           </div>
         </div>
-        <div className="fixed h-full w-full left-0 right-0 bg-black bg-opacity-30 backdrop-blur-sm text-white flex justify-center items-center overflow-hidden">
-          Comming Soon!
+        <div className="fixed left-0 right-0 flex items-center justify-center w-full h-full overflow-hidden text-white bg-black bg-opacity-30 backdrop-blur-sm">
+          Coming Soon!
         </div>
       </div>
     </>

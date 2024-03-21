@@ -3,7 +3,7 @@ import React from "react";
 
 const Discord = () => {
   // return <AuthenticaionPopup isUserNameGenerated closeModal={() => {}} />;
-  return <div className="flex items-center justify-center w-full h-full">Comming Soon!</div>;
+  return <div className="flex items-center justify-center w-full h-full">Coming Soon!</div>;
 };
 
 export default Discord;

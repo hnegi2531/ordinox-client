@@ -5,11 +5,11 @@ type DefaultInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLI
 
 type PasswordInputProps = {
   value: string;
-  onChangeHandler: (e:ChangeEvent<HTMLInputElement>) => void;
+  onChangeHandler?: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 } & DefaultInputProps;
 
-const PasswordInput: React.FC<PasswordInputProps> = ({ value, onChangeHandler, className }) => {
+const PasswordInput: React.FC<PasswordInputProps> = ({ value, onChangeHandler, className, ...restProps }) => {
   const [showPassword, setShowPassword] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -34,7 +34,8 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ value, onChangeHandler, c
         type={showPassword ? "text" : "password"}
         value={value}
         onChange={onChangeHandler}
-        className={` bg-transparent pl-2 pr-10 py-2  shadow appearance-none border border-brand-300 text-sm rounded-lg block w-full leading-tight focus:outline-none focus:ring-brand-50 focus:border-brand-300 focus:shadow-outline ${className}`}
+        className={`bg-transparent pl-2 pr-10 py-2  shadow appearance-none border border-brand-300 text-sm rounded-lg block w-full leading-tight focus:outline-none focus:ring-brand-50 focus:border-brand-300 focus:shadow-outline ${className}`}
+        {...restProps}
       />
       <button
         type="button"

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useCallback, useMemo, useState } from "react";
 import Logo from "./Logo";
 import NavRoute from "./NavRoute";
+import Account from "./Account";
 
 type NavLinkType = {
   id: number;
@@ -47,14 +48,14 @@ const Navbar = () => {
               <NavRoute
                 key={link.id}
                 route={link.route}
-                className={`text-base hover:text-brand-300 transition-all duration-100 pb-1 select-none ${
-                  isActive ? "border-b text-brand-300 border-brand-300" : "text-white"
-                } ${showLink ? "flex" : "hidden"}`}
+                className={`text-base hover:text-brand-300 transition-all duration-100 pb-1 select-none ${isActive ? "border-b text-brand-300 border-brand-300" : "text-white"
+                  } ${showLink ? "flex" : "hidden"}`}
               >
                 {link.text}
               </NavRoute>
             );
           })}
+          <Account />
         </div>
       </div>
     </nav>

@@ -32,7 +32,7 @@ const AccountPassword = ({ password, setPassword, setPrivateKey, setScreenNumber
       setPrivateKey(privateKey);
       setScreenNumber((prev) => prev + 1);
     } catch (error) {
-      toast.error('Wrong password!')
+      toast.error('Wrong password')
     }
   };
 

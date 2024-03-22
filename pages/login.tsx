@@ -45,6 +45,7 @@ type AuthenticateProps = {};
 const Authenticate: React.FC<AuthenticateProps> = () => {
   const [showModal, setShowModal] = useState(false);
   const [isUsernameGenerated, setIsUserNameGenerated] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { data: userInfo } = useUserInfo();
 
@@ -59,6 +60,12 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
     setShowModal(false);
   };
 
+  useEffect(() => {
+    return () => {
+      setLoading(false);
+    }
+  }, [])
+
   return (
     <div className="flex flex-col items-center w-full h-full gap-8 px-4 md:px-20 md:flex-row ">
       <div className="flex-1">
@@ -71,8 +78,13 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
           <div>
             <Button
               variant="primary"
+              loading={loading}
+              disabled={loading}
               className="flex items-center gap-4 text-lg font-semibold uppercase bg-white font-poppins"
-              onClick={() => (window.location.href = `${baseURL}/auth/twitter`)}
+              onClick={() => {
+                setLoading(true);
+                window.location.href = `${baseURL}/auth/twitter`
+              }}
             >
               <span>log in / sign up</span> <img height={20} width={20} src={twitterImageData} />
             </Button>

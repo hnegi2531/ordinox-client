@@ -20,7 +20,7 @@ const Discord = () => {
 
   const handleInvite = () => {
     if (otp.length < 6) {
-      toast.error("Invlid invite code!");
+      toast.error("Invalid invite code");
       return;
     }
     reedemInviteMutation(otp.toString(), {
@@ -28,7 +28,7 @@ const Discord = () => {
         router.push("/earn");
       },
       onError: () => {
-        toast.error("Invlid invite code!");
+        toast.error("Invalid invite code");
       },
     });
   };
@@ -115,11 +115,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-        redirect: redirectConfig,
-        props: _props,
-      }
+      redirect: redirectConfig,
+      props: _props,
+    }
     : {
-        props: _props,
-      };
+      props: _props,
+    };
   return returnValue;
 };

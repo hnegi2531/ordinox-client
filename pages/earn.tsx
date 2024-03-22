@@ -102,7 +102,7 @@ const Profile = () => {
             <svg
               onClick={() => {
                 navigator.clipboard.writeText(userInfo?.EthAddress ?? "");
-                toast.success("Copied successfully!");
+                toast.success("Copied successfully");
               }}
               width="18"
               height="22"
@@ -267,11 +267,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-        redirect: redirectConfig,
-        props: _props,
-      }
+      redirect: redirectConfig,
+      props: _props,
+    }
     : {
-        props: _props,
-      };
+      props: _props,
+    };
   return returnValue;
 };

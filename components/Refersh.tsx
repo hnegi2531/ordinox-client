@@ -10,7 +10,7 @@ const Refersh = () => {
     setLoading(true)
     queryClient.invalidateQueries({ queryKey: ["user"] })
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast.success('Refetched balance successfully');
+    toast.success('Balance updated successfully');
     setLoading(false);
   }
 

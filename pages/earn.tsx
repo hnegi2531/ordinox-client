@@ -17,6 +17,7 @@ import { useClaimPoints } from "../hooks/mutations/useClaimPoints";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import Refersh from "../components/Refersh";
+import { FaDiscord } from "react-icons/fa";
 
 const Profile = () => {
   const [showModal, setShowModal] = useState(false);
@@ -42,9 +43,12 @@ const Profile = () => {
         <div className="flex flex-col max-w-xl gap-6 ">
           <h1 className="text-4xl tracking-tight text-brand-300">fund account with USDT to earn ordinox points</h1>
           <p className="">
-            withdrawing your funds during <span className="font-bold text-white"> round 0</span> <span className="text-red-500">will reset your points.</span>
+            withdrawing your funds during <span className="font-bold text-white"> round 0</span>{" "}
+            <span className="text-red-500">will reset your points.</span>
           </p>
-          <p className="">points will be redeemable in <span className="font-bold text-white">round 2</span></p>
+          <p className="">
+            points will be redeemable in <span className="font-bold text-white">round 2</span>
+          </p>
           <p className="mt-4 text-red-500">MIN BALANCE $10</p>
         </div>
         <div className="flex flex-col max-w-md gap-4">
@@ -197,10 +201,21 @@ const Profile = () => {
                     </div>
                     <div className="mb-10 text-center text-8xl">{unClaimedPoints.current}</div>
                     <div className="flex items-center justify-center gap-4">
-                      <Button className="flex items-center gap-2 px-4 font-semibold font-poppins">
+                      <Button
+                        className="flex items-center gap-2 px-4 font-semibold font-poppins"
+                        onClick={() => window.open("https://x.com/OrdinoxLabs?t=BK3-kcd8ptPVnJgMtT7aig&s=09", "_blank")}
+                      >
                         Follow on <img src={twitterImageData} height={16} width={16} />
                       </Button>
-                      <Button className="flex items-center gap-2 px-4 font-semibold font-poppins">Join Discord</Button>
+                      <Button
+                        onClick={() => window.open("https://discord.gg/PG8w4RG5jJ", "_blank")}
+                        className="flex items-center gap-2 px-4 font-semibold font-poppins"
+                      >
+                        <span>Join Discord</span>
+                        <span className="flex items-center justify-center">
+                          <FaDiscord className="text-xl" />
+                        </span>
+                      </Button>
                     </div>
                   </div>
                 </motion.div>
@@ -252,11 +267,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-      redirect: redirectConfig,
-      props: _props,
-    }
+        redirect: redirectConfig,
+        props: _props,
+      }
     : {
-      props: _props,
-    };
+        props: _props,
+      };
   return returnValue;
 };

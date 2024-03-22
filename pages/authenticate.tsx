@@ -54,7 +54,7 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
         let userInfo = await fetchUserInfo(token);
         if (userInfo?.EthAddress && !userInfo?.Invite?.Code) router.push("/invite");
 
-        if (userInfo?.EthAddress && userInfo?.Invite?.Code) router.push("/profile");
+        if (userInfo?.EthAddress && userInfo?.Invite?.Code) router.push("/earn");
 
         if (!userInfo?.EthAddress && !userInfo?.Invite?.Code) router.push("/login");
       }
@@ -79,7 +79,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
     const getDest = (): string | null => {
       if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
-      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/profile";
+      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/earn";
       if (!userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/login";
       return null;
     };

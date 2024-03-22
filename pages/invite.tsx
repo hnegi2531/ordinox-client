@@ -25,7 +25,7 @@ const Discord = () => {
     }
     reedemInviteMutation(otp.toString(), {
       onSuccess: () => {
-        router.push("/profile");
+        router.push("/earn");
       },
       onError: () => {
         toast.error("Invlid invite code!");
@@ -61,7 +61,13 @@ const Discord = () => {
         </div>
 
         <div className="flex items-center justify-center w-full px-10 text-center">
-          <Button variant="primary" loading={reedemInviteMutationLoading} disabled={reedemInviteMutationLoading} className="w-full uppercase" onClick={handleInvite}>
+          <Button
+            variant="primary"
+            loading={reedemInviteMutationLoading}
+            disabled={reedemInviteMutationLoading}
+            className="w-full uppercase"
+            onClick={handleInvite}
+          >
             redeem invite code
             {/* <span><Image ></span> */}
           </Button>
@@ -86,7 +92,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
     let userInfo = await fetchUserInfo(authToken);
     // userInfo = { ...userInfo, EthAddress: "", Invite: { ...userInfo.Invite, Code: "" } };
     const getDest = (): string | null => {
-      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/profile";
+      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/earn";
       return null;
     };
     redirectLocation = getDest();
@@ -109,11 +115,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-      redirect: redirectConfig,
-      props: _props,
-    }
+        redirect: redirectConfig,
+        props: _props,
+      }
     : {
-      props: _props,
-    };
+        props: _props,
+      };
   return returnValue;
 };

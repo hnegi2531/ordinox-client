@@ -59,7 +59,7 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
   };
 
   return (
-    <div className="flex flex-row items-center w-full h-full gap-8 px-20 ">
+    <div className="flex flex-col items-center w-full h-full gap-8 px-4 md:px-20 md:flex-row ">
       <div className="flex-1">
         <div className="flex flex-col gap-10">
           <h1 className="text-5xl text-brand-300">claim ordinox points</h1>
@@ -79,13 +79,12 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
         </div>
       </div>
       <div className="flex-1">
-        <div className="flex flex-row items-center">
+        <div className="flex flex-col md:items-center md:flex-row">
           {rounds.map((round) => (
             <div
               key={round.number}
-              className={`flex-1 flex flex-col gap-1 justify-end uppercase border-b-2 pb-4 ${
-                round.isComplete ? "border-roundBorder" : ""
-              }`}
+              className={`flex-1 flex flex-col gap-1 justify-end uppercase border-b-2 pb-4 ${round.isComplete ? "border-roundBorder" : ""
+                }`}
             >
               <div className="relative h-28 w-28">
                 <Image src={round.imageUrl} alt={`round-${round.number}`} layout="fill" />
@@ -146,11 +145,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-        redirect: redirectConfig,
-        props: _props,
-      }
+      redirect: redirectConfig,
+      props: _props,
+    }
     : {
-        props: _props,
-      };
+      props: _props,
+    };
   return returnValue;
 };

@@ -37,7 +37,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex flex-row items-center w-full h-full px-20">
+    <div className="flex flex-col items-center w-full h-full gap-8 px-4 md:px-20 md:flex-row">
       <div className="flex flex-col flex-1 gap-12 tracking-tight">
         <div className="flex flex-col max-w-xl gap-6 ">
           <h1 className="text-4xl tracking-tight text-brand-300">fund account with USDT to earn ordinox points</h1>

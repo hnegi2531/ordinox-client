@@ -36,12 +36,12 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="px-20 py-10">
-      <div className="flex flex-row items-center justify-between bg-transparent">
+    <nav className="px-4 pt-4 pb-10 lg:px-20 lg:py-10">
+      <div className="flex flex-col justify-between gap-2 bg-transparent md:items-center md:flex-row">
         <div className="cursor-pointer" onClick={handleLogoClick}>
           <Logo size="lg" />
         </div>
-        <div className="flex flex-row gap-12">
+        <div className="flex flex-row flex-wrap gap-2 lg:gap-12">
           {navLinks.map((link) => {
             const showLink = (link.isPrivateRoute && isUserLoggedIn) || !link.isPrivateRoute;
             const isActive = currentRoute === link.route;

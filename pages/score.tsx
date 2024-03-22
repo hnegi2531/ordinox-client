@@ -40,7 +40,7 @@ const Score = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full h-full gap-8 px-20 md:flex-row">
+    <div className="flex flex-col items-center w-full h-full gap-8 px-4 md:px-20 md:flex-row">
       <div className="flex flex-col flex-1 gap-16">
         <div className="flex flex-col gap-4">
           <h1 className="text-4xl text-brand-300">origins hq</h1>

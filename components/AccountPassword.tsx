@@ -29,7 +29,6 @@ const AccountPassword = ({ password, setPassword, setPrivateKey, setScreenNumber
         password
       })
       if (!privateKey) throw new Error('Wrong password')
-      console.log('privateKey', privateKey)
       setPrivateKey(privateKey);
       setScreenNumber((prev) => prev + 1);
     } catch (error) {

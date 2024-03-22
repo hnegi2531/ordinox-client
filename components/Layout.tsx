@@ -44,7 +44,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, [router?.pathname]);
 
   return (
-    <article className="relative flex flex-col items-center w-screen h-screen bg-black font-spacemono text-secondryText">
+    <article className="relative flex flex-col items-center w-screen h-screen overflow-auto bg-black font-spacemono text-secondryText">
       <div
         className={`flex flex-col items-center w-full h-full min-h-screen bg-cover ${ordinoxBackground}`}>
         <div className="z-20 flex flex-col w-full h-full">
@@ -64,7 +64,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </motion.div>
             </AnimatePresence>
           </section>
-          <div className="flex items-center justify-center mb-10">
+          <div className="items-center justify-center hidden mb-10 lg:flex">
             {router.pathname !== "/leaderboard" && <Footer />}
           </div>
         </div>

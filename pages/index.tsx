@@ -21,19 +21,20 @@ export default function Home() {
   return (
     <>
       <div className="flex items-center justify-center w-full h-full">
-        <div className="flex flex-col items-center justify-center max-w-6xl gap-8 mb-20 text-center">
-          <div>
+        <div className="flex flex-col items-center justify-between h-full max-w-6xl gap-8 mb-20 text-center md:justify-center">
+          <div className="flex flex-col items-center gap-4 py-12 md:py-0">
             <h1 className="text-5xl text-center text-brand-300">{word}</h1>
+            <div className="max-w-lg">
+              <p className="font-light text-white">
+                Ordinox facilitates a native cross-chain swap between ERC20 tokens and Bitcoin Inscriptions / Runes based
+                tokens
+              </p>
+            </div>
           </div>
 
-          <div className="max-w-lg">
-            <p className="font-light text-white">
-              Ordinox facilitates a native cross-chain swap between ERC20 tokens and Bitcoin Inscriptions / Runes based
-              tokens
-            </p>
-          </div>
 
-          <div className="max-w-sm">
+
+          <div className="max-w-sm mb-20 md:mb-0">
             <Button
               variant="primary"
               className="flex items-center w-full gap-4 px-20 text-lg font-semibold uppercase font-poppins"
@@ -54,7 +55,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="absolute flex flex-col gap-6 bottom-40 left-28">
+      <div className="flex-col hidden gap-6 md:flex md:absolute md:bottom-40 md:left-28">
         <div className="flex flex-col gap-2">
           <h5 className="text-xl font-semibold text-red-500 uppercase font-poppins">users</h5>
           <p className="text-6xl font-normal text-white">1095</p>
@@ -107,11 +108,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
   const returnValue = redirectLocation
     ? {
-        redirect: redirectConfig,
-        props: _props,
-      }
+      redirect: redirectConfig,
+      props: _props,
+    }
     : {
-        props: _props,
-      };
+      props: _props,
+    };
   return returnValue;
 };

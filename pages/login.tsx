@@ -50,6 +50,7 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
 
   useEffect(() => {
     if (userInfo?.EthAddress && userInfo?.Invite?.Code) {
+      console.log(userInfo);
       setShowModal(true);
     }
   }, [userInfo?.EthAddress, userInfo?.Invite?.Code]);
@@ -123,7 +124,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
     let userInfo = await fetchUserInfo(authToken);
     const getDest = (): string | null => {
       if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
-      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/profile";
+      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/earn";
       return null;
     };
     redirectLocation = getDest();

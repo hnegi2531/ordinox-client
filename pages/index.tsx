@@ -82,7 +82,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 
     // userInfo = { ...userInfo, EthAddress: "", Invite: { ...userInfo.Invite, Code: "" } };
     const getDest = (): string | null => {
-      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/profile";
+      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/earn";
       if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
       // if (!userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/login";
       return null;

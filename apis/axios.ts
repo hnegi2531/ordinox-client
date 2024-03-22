@@ -11,9 +11,7 @@ export const getToken = (): string | null => {
 export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
 
 export const baseURL =
-  process.env.NODE_ENV === "development"
-    ? "http://straddle.abstractly.in:7891"
-    : "https://origins.abstractly.in";
+  process.env.NODE_ENV === "development" ? "http://straddle.abstractly.in:7891" : "https://origins.abstractly.in";
 
 const axiosInstance = axios.create({
   baseURL,
@@ -39,7 +37,7 @@ axiosInstance.interceptors.response.use(
   },
   async function (error) {
     const apiName = error?.config?.url;
-    console.log(`API error ${apiName}`, error);
+    // console.log(`API error ${apiName}`, error);
 
     if (error.code === "ECONNABORTED") {
       // eslint-disable-next-line no-throw-literal

@@ -10,8 +10,15 @@ export const getToken = (): string | null => {
 
 export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
 
-export const baseURL =
-  process.env.NODE_ENV === "development" ? "http://straddle.abstractly.in:7891" : "https://origins.abstractly.in";
+const getURL = (env: string) => {
+  if (env === "development") return "https://api.origins-dev.ordinox.xyz";
+  if (env === "production") return "https://api.origins.ordinox.xyz";
+  if (env === "preview") return "https://api.origins-staging.ordinox.xyz";
+};
+
+export const baseURL = getURL(process.env.VERCEL_ENV || "development");
+
+console.log(baseURL, process.env.VERCEL_ENV);
 
 const axiosInstance = axios.create({
   baseURL,

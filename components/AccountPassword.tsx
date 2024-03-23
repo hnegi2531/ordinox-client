@@ -20,7 +20,7 @@ const AccountPassword = ({ password, setPassword, setPrivateKey, setScreenNumber
     if (!password) return;
     const ordinoxPrivateKey = localStorage.getItem('ordinoxKey')
     if (!ordinoxPrivateKey) {
-      toast.error('Please try with the orignal device where you created the account.')
+      toast.error('Login from the device where you first created your account')
       return;
     }
     try {

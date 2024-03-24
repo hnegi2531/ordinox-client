@@ -1,11 +1,6 @@
-import Head from "next/head";
 import { Inter } from "next/font/google";
 import Button from "@/components/Button";
 import { useRouter } from "next/router";
-import { GetServerSideProps } from "next";
-import { baseURL } from "@/apis/axios";
-import { fetchUserInfo } from "@/apis/users";
-import { AxiosError } from "axios";
 import { useTypingText } from "../hooks/useTypingText";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,13 +21,11 @@ export default function Home() {
             <h1 className="text-5xl text-center text-brand-300">{word}</h1>
             <div className="max-w-lg">
               <p className="font-light text-white">
-                Ordinox facilitates a native cross-chain swap between ERC20 tokens and Bitcoin Inscriptions / Runes based
-                tokens
+                Ordinox facilitates a native cross-chain swap between ERC20 tokens and Bitcoin Inscriptions / Runes
+                based tokens
               </p>
             </div>
           </div>
-
-
 
           <div className="max-w-sm mb-20 md:mb-0">
             <Button
@@ -68,51 +61,3 @@ export default function Home() {
     </>
   );
 }
-
-type PageProps = {
-  isAuthanticated: boolean;
-  categories?: string;
-};
-export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
-  let authToken = context.req.headers.cookie;
-  authToken = authToken?.split("auth_token=")[1] ? `Bearer ${authToken?.split("auth_token=")[1]}` : "";
-
-  let redirectLocation: string | null = "";
-  try {
-    let userInfo = await fetchUserInfo(authToken);
-
-    // userInfo = { ...userInfo, EthAddress: "", Invite: { ...userInfo.Invite, Code: "" } };
-    const getDest = (): string | null => {
-      if (userInfo?.EthAddress && userInfo?.Invite?.Code) return "/earn";
-      if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
-      // if (!userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/login";
-      return null;
-    };
-    redirectLocation = getDest();
-  } catch (error) {
-    const err = error as AxiosError;
-    if (err?.response?.status === 401) {
-      redirectLocation = null;
-    }
-  }
-
-  const redirectConfig = {
-    permanent: false,
-    destination: redirectLocation,
-  };
-
-  const _props: PageProps = {
-    isAuthanticated: true,
-    categories: "anshuhim",
-  };
-
-  const returnValue = redirectLocation
-    ? {
-      redirect: redirectConfig,
-      props: _props,
-    }
-    : {
-      props: _props,
-    };
-  return returnValue;
-};

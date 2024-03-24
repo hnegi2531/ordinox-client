@@ -13,10 +13,9 @@ import Modal from "./Modal";
 
 type AuthenticaionPopupProps = {
   closeModal: () => void;
-  isUserNameGenerated: boolean;
 };
 
-const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isUserNameGenerated }) => {
+const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal }) => {
   const [screenNumber, setScreenNumber] = useState<number>(1);
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -46,11 +45,13 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isU
   };
 
   return (
-    <Modal closeModal={() => {
-      if (screenNumber === 5) {
-        closeModal()
-      }
-    }}>
+    <Modal
+      closeModal={() => {
+        if (screenNumber === 5) {
+          closeModal();
+        }
+      }}
+    >
       <AnimatePresence mode="wait">
         <motion.div
           initial={{ opacity: 0, x: 20 }}
@@ -59,9 +60,11 @@ const AuthenticaionPopup: React.FC<AuthenticaionPopupProps> = ({ closeModal, isU
           transition={{ duration: 0.3 }}
           className="relative flex flex-col px-8 py-8 border border-gray-300 rounded-lg shadow-xl max-h-fit w-96 bg-popUp bg-opacity-80 backdrop-filter backdrop-blur-md backdrop-brightness-75 backdrop-saturate-150"
         >
-          {screenNumber === 5 && <span onClick={handleClose} className="absolute cursor-pointer right-5 top-5">
-            <IoMdCloseCircleOutline className="text-2xl text-textWarning" />
-          </span>}
+          {screenNumber === 5 && (
+            <span onClick={handleClose} className="absolute cursor-pointer right-5 top-5">
+              <IoMdCloseCircleOutline className="text-2xl text-textWarning" />
+            </span>
+          )}
           <AnimatePresence mode="wait">
             <motion.div
               key={screenNumber}

@@ -35,18 +35,18 @@ const SecureAccount: React.FC<SecureAccountProps> = ({ password, setScreenNumber
   };
 
   return (
-    <div className="flex-grow flex flex-col items-stretch justify-between gap-10">
+    <div className="flex flex-col items-stretch justify-between flex-grow gap-10">
       <div className="flex flex-col gap-3">
-        <h1 className="uppercase font-semibold">secure your account</h1>
+        <h1 className="font-semibold uppercase">secure your account</h1>
         <p className="text-xs text-secondryText">store your password and private key somewhere safe.</p>
         <div>
-          <label htmlFor="finalPassword" className="text-secondryText inline-block mb-2 text-sm font-medium">
+          <label htmlFor="finalPassword" className="inline-block mb-2 text-sm font-medium text-secondryText">
             password
           </label>
           <PreviewInput id="finalPassword" value={finaPassword} disabled />
         </div>
         <div>
-          <label htmlFor="privateKey" className="text-secondryText inline-block mb-2 text-sm font-medium">
+          <label htmlFor="privateKey" className="inline-block mb-2 text-sm font-medium text-secondryText">
             private key
           </label>
           <PreviewInput id="privateKey" value={wallet?.privateKey} disabled />
@@ -63,7 +63,8 @@ const SecureAccount: React.FC<SecureAccountProps> = ({ password, setScreenNumber
       <div className="text-right">
         <Button
           variant="secondary"
-          className="py-0 md:py-0 px-0 border-none text-right uppercase text-verified"
+          loading={addAddressLoading}
+          className="px-0 py-0 text-right uppercase border-none md:py-0 text-verified"
           onClick={handleContinue}
           disabled={addAddressLoading || !isChecked}
         >

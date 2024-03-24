@@ -5,44 +5,15 @@ import React, { useEffect, useState } from "react";
 import { twitterImageData } from "../utils/constants";
 import { baseURL } from "../apis/axios";
 import { useUserInfo } from "@/hooks/queries/useUser";
-
-const rounds = [
-  {
-    number: 0,
-    text1: "early access",
-    text2: "earn ordinox points",
-    date: "march 2024",
-    imageUrl: "/round0.png",
-    isComplete: true,
-  },
-
-  {
-    number: 1,
-    text1: "app launch",
-    text2: "incentivised testnet",
-    date: "may 2024",
-    imageUrl: "/round1.png",
-    isComplete: false,
-  },
-
-  {
-    number: 2,
-    text1: "revelations",
-    text2: "redeem ordinox points",
-    date: "h2 2024",
-    imageUrl: "/round2.png",
-    isComplete: false,
-  },
-];
+import { ROUNDS } from "@/utils/helper";
 
 type AuthenticateProps = {};
 
 const Authenticate: React.FC<AuthenticateProps> = () => {
   const [showModal, setShowModal] = useState(false);
-  const [isUsernameGenerated, setIsUserNameGenerated] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  let { data: userInfo } = useUserInfo();
+  const { data: userInfo } = useUserInfo();
 
   useEffect(() => {
     if (userInfo && !userInfo?.EthAddress && !userInfo?.Invite?.Code) setShowModal(true);
@@ -85,7 +56,7 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
       </div>
       <div className="flex-1">
         <div className="flex flex-col md:items-center md:flex-row">
-          {rounds.map((round) => (
+          {ROUNDS.map((round) => (
             <div
               key={round.number}
               className={`flex-1 flex flex-col gap-1 justify-end uppercase border-b-2 pb-4 ${
@@ -109,7 +80,7 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
           ))}
         </div>
       </div>
-      {showModal && <AuthenticaionPopup closeModal={closeModal} isUserNameGenerated={isUsernameGenerated} />}
+      {showModal && <AuthenticaionPopup closeModal={closeModal} />}
     </div>
   );
 };

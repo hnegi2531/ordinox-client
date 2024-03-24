@@ -13,7 +13,8 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { data: userInfo } = useUserInfo();
+  const { data: userInfo } = useUserInfo(
+  );
 
   useEffect(() => {
     if (userInfo && !userInfo?.EthAddress && !userInfo?.Invite?.Code) setShowModal(true);
@@ -59,9 +60,8 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
           {ROUNDS.map((round) => (
             <div
               key={round.number}
-              className={`flex-1 flex flex-col gap-1 justify-end uppercase border-b-2 pb-4 ${
-                round.isComplete ? "border-roundBorder" : ""
-              }`}
+              className={`flex-1 flex flex-col gap-1 justify-end uppercase border-b-2 pb-4 ${round.isComplete ? "border-roundBorder" : ""
+                }`}
             >
               <div className="relative h-28 w-28">
                 <Image src={round.imageUrl} alt={`round-${round.number}`} layout="fill" />

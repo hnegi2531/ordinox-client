@@ -1,9 +1,7 @@
-import { Inter } from "next/font/google";
 import Button from "@/components/Button";
 import { useRouter } from "next/router";
 import { useTypingText } from "../hooks/useTypingText";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useStats } from "../hooks/queries/useStats";
 
 export default function Home() {
   const router = useRouter();
@@ -12,6 +10,12 @@ export default function Home() {
     keySpeed: 60,
     maxPauseAmount: 20,
   });
+
+  const {
+    data: stats
+  } = useStats()
+
+  const [users, amount] = stats ?? [];
 
   return (
     <>
@@ -26,7 +30,6 @@ export default function Home() {
               </p>
             </div>
           </div>
-
           <div className="max-w-sm mb-20 md:mb-0">
             <Button
               variant="primary"
@@ -51,11 +54,11 @@ export default function Home() {
       <div className="flex-col hidden gap-6 md:flex md:absolute md:bottom-40 md:left-28">
         <div className="flex flex-col gap-2">
           <h5 className="text-xl font-semibold text-red-500 uppercase font-poppins">users</h5>
-          <p className="text-6xl font-normal text-white">1095</p>
+          <p className="text-6xl font-normal tracking-tighter text-white">{users ?? '0'}</p>
         </div>
         <div className="flex flex-col gap-2">
           <h5 className="text-xl font-semibold text-red-500 uppercase font-poppins">deposits</h5>
-          <p className="text-6xl font-normal text-white">$10,455</p>
+          <p className="text-6xl font-normal tracking-tighter text-white">{amount ?? '$0.00'}</p>
         </div>
       </div>
     </>

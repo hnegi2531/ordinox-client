@@ -50,10 +50,7 @@ const Authenticate: React.FC<AuthenticateProps> = () => {
   const { data: userInfo } = useUserInfo();
 
   useEffect(() => {
-    if (userInfo?.EthAddress && userInfo?.Invite?.Code) {
-      console.log(userInfo);
-      setShowModal(true);
-    }
+    if (userInfo && !userInfo?.EthAddress && !userInfo?.Invite?.Code) setShowModal(true);
   }, [userInfo?.EthAddress, userInfo?.Invite?.Code]);
 
   const closeModal = () => {

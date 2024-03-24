@@ -20,7 +20,7 @@ const AccountDetails = ({ setScreenNumber, closeModal }: AccountDetailsProps) =>
   const router = useRouter();
 
   const copyToClipboard = () => {
-    toast.success("Copied successfully");
+    toast.success("Copied to clipboard");
     navigator.clipboard.writeText(userInfo?.EthAddress ?? "");
     setCopied(true);
     setTimeout(() => {
@@ -73,7 +73,7 @@ const AccountDetails = ({ setScreenNumber, closeModal }: AccountDetailsProps) =>
         >
           Export Private Key
         </p>
-        <span className="text-red-400 uppercase cursor-pointer hover:text-red-500 select-none" onClick={logoutHandler}>
+        <span className="text-red-400 uppercase cursor-pointer select-none hover:text-red-500" onClick={logoutHandler}>
           Logout
         </span>
       </div>

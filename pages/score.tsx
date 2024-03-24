@@ -26,7 +26,7 @@ const Score = () => {
 
   const generateCodeHandler = () => {
     if (userInfo?.Invites && userInfo?.Invites.length > 19) {
-      toast.error('Maximum 20 invite codes limit reached');
+      toast.error('Invite code limit reached');
       return;
     }
     // @ts-ignore

@@ -102,7 +102,7 @@ const Profile = () => {
             <svg
               onClick={() => {
                 navigator.clipboard.writeText(userInfo?.EthAddress ?? "");
-                toast.success("Copied successfully");
+                toast.success("Copied to clipboard");
               }}
               width="18"
               height="22"

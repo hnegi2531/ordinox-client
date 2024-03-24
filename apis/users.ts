@@ -43,6 +43,8 @@ export interface Invite {
   CreatedAt: string;
 }
 
+export type Stats = string[];
+
 export const getUser = async (): Promise<UserInfoType> => {
   const res = await api.AXIOS({
     url: `/user/profile`,
@@ -55,6 +57,14 @@ export const generateInviteCode = async (): Promise<Invite> => {
   const res = await api.AXIOS({
     url: `/invite/generate`,
     method: "post",
+  });
+  return res;
+};
+
+export const getStats = async (): Promise<Stats> => {
+  const res = await api.AXIOS({
+    url: `/stats`,
+    method: "get",
   });
   return res;
 };

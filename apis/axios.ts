@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios";
-
+import Cookies from "js-cookie";
 export const getToken = (): string | null => {
   if (typeof window !== "undefined") {
-    return localStorage.getItem("auth_token");
+    return Cookies.get("auth_token") ?? "";
   } else {
     return null;
   }

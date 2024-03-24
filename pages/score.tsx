@@ -1,10 +1,8 @@
-import { fetchUserInfo, Invite } from "@/apis/users";
+import { Invite } from "@/apis/users";
 import { useGenerateInviteCode } from "@/hooks/mutations/useGenerateInviteCode";
 import { useUserInfo } from "@/hooks/queries/useUser";
 import { useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { ethers } from "ethers";
-import { GetServerSideProps } from "next";
 import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
@@ -26,7 +24,7 @@ const Score = () => {
 
   const generateCodeHandler = () => {
     if (userInfo?.Invites && userInfo?.Invites.length > 19) {
-      toast.error('Invite code limit reached');
+      toast.error("Invite code limit reached");
       return;
     }
     // @ts-ignore
@@ -79,10 +77,11 @@ const Score = () => {
                 return (
                   <div key={invite.ID} className="relative">
                     <div
-                      className={`text-lg ${invite?.IsUsed
-                        ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
-                        : ""
-                        }`}
+                      className={`text-lg ${
+                        invite?.IsUsed
+                          ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
+                          : ""
+                      }`}
                     >
                       {invite.Code}
                     </div>
@@ -131,48 +130,3 @@ const Score = () => {
 };
 
 export default Score;
-
-type PageProps = {
-  isAuthanticated: boolean;
-  categories?: string;
-};
-export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
-  let authToken = context.req.headers.cookie;
-  authToken = authToken?.split("auth_token=")[1] ? `Bearer ${authToken?.split("auth_token=")[1]}` : "";
-
-  let redirectLocation: string | null = "";
-  try {
-    const userInfo = await fetchUserInfo(authToken);
-    const getDest = (): string | null => {
-      if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
-      if (!userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/authenticate";
-      return null;
-    };
-    redirectLocation = getDest();
-  } catch (error) {
-    const err = error as AxiosError;
-    if (err?.response?.status === 401) {
-      redirectLocation = "/";
-    }
-  }
-
-  const redirectConfig = {
-    permanent: false,
-    destination: redirectLocation,
-  };
-
-  const _props: PageProps = {
-    isAuthanticated: true,
-    categories: "anshuhim",
-  };
-
-  const returnValue = redirectLocation
-    ? {
-      redirect: redirectConfig,
-      props: _props,
-    }
-    : {
-      props: _props,
-    };
-  return returnValue;
-};

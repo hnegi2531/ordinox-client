@@ -1,9 +1,6 @@
-import { fetchUserInfo } from "@/apis/users";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
-import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import { GetServerSideProps } from "next";
 import React, { useRef, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import QRCode from "react-qr-code";
@@ -229,49 +226,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-type PageProps = {
-  isAuthanticated: boolean;
-  categories?: string;
-};
-export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
-  let authToken = context.req.headers.cookie;
-  authToken = authToken?.split("auth_token=")[1] ? `Bearer ${authToken?.split("auth_token=")[1]}` : "";
-
-  let redirectLocation: string | null = "";
-  try {
-    let userInfo = await fetchUserInfo(authToken);
-
-    const getDest = (): string | null => {
-      if (userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/invite";
-      if (!userInfo?.EthAddress && !userInfo?.Invite?.Code) return "/login";
-      return null;
-    };
-    redirectLocation = getDest();
-  } catch (error) {
-    const err = error as AxiosError;
-    if (err?.response?.status === 401) {
-      redirectLocation = "/";
-    }
-  }
-
-  const redirectConfig = {
-    permanent: false,
-    destination: redirectLocation,
-  };
-
-  const _props: PageProps = {
-    isAuthanticated: true,
-    categories: "anshuhim",
-  };
-
-  const returnValue = redirectLocation
-    ? {
-      redirect: redirectConfig,
-      props: _props,
-    }
-    : {
-      props: _props,
-    };
-  return returnValue;
-};

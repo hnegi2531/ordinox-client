@@ -24,7 +24,7 @@ const Profile = () => {
   const { data: userInfo } = useUserInfo();
   const queryClient = useQueryClient();
   const { mutate: claimPointsMutation, isPending: claimPointsLoading } = useClaimPoints();
-  const balance = ethers.formatEther(userInfo?.LastUsdtBalance || "0");
+  const balance = ethers.formatUnits(userInfo?.LastUsdtBalance || '0', 6)
   const closeModal = () => {
     setShowModal(false);
   };

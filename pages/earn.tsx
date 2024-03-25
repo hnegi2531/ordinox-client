@@ -154,9 +154,9 @@ const Profile = () => {
                             1. <img src={usdtIcon} width={20} height={20} />
                             <span className="">USDT</span>
                           </div>
-                          <span>
+                          <a href="https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7" target="_blank" className="text-gray-300 cursor-pointer hover:text-gray-100">
                             <CiShare1 />
-                          </span>
+                          </a>
                         </div>
                       </div>
                     </div>

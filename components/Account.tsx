@@ -43,7 +43,7 @@ const Account = () => {
   return (
     <div>
       <div
-        className="font-semibold uppercase cursor-pointer text-brand-600 hover:text-brand-500 font-poppins select-none"
+        className="font-semibold uppercase cursor-pointer select-none text-brand-600 hover:text-brand-500 font-poppins"
         onClick={() => {
           setIsOpen(true);
         }}

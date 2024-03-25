@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useUserInfo } from "../hooks/queries/useUser";
 import { shortenAddress } from "../utils/crypto";
-import toast from "react-hot-toast";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useQueryClient } from "@tanstack/react-query";
+import { customToast } from "../utils/toast";
 
 type AccountDetailsProps = {
   setScreenNumber: (value: number | ((prevVar: number) => number)) => void;
@@ -20,7 +20,9 @@ const AccountDetails = ({ setScreenNumber, closeModal }: AccountDetailsProps) =>
   const router = useRouter();
 
   const copyToClipboard = () => {
-    toast.success("Copied to clipboard");
+    customToast({
+      message: 'Copied to clipboard',
+    })
     navigator.clipboard.writeText(userInfo?.EthAddress ?? "");
     setCopied(true);
     setTimeout(() => {

@@ -4,12 +4,15 @@ import React from "react";
 const Leaderboard = () => {
   return (
     <>
-      <div className="relative flex flex-col h-full gap-8 px-4 md:px-20">
+      <div className="fixed left-0 right-0 flex items-center justify-center w-full h-full overflow-hidden text-white bg-black bg-opacity-30 backdrop-blur-sm">
+        Coming Soon!
+      </div>
+      <div className="flex flex-col h-full gap-8 px-4 md:px-20">
         <div className="flex flex-col h-full gap-2">
           <h1 className="text-4xl text-brand-300">leaderboard</h1>
           <p className="text-lg">deposit funds and invite your friends to earn more points</p>
         </div>
-        <div className="">
+        <div className="pb-10">
           <div className="min-w-full divide-y divide-gray-400">
             <div className="bg-black">
               <div className="grid grid-cols-4 text-brand-400">
@@ -37,9 +40,7 @@ const Leaderboard = () => {
             </div>
           </div>
         </div>
-        <div className="fixed left-0 right-0 flex items-center justify-center w-full h-full overflow-hidden text-white bg-black bg-opacity-30 backdrop-blur-sm">
-          Coming Soon!
-        </div>
+
       </div>
     </>
   );

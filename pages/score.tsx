@@ -5,8 +5,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import Image from "next/image";
 import React from "react";
-import toast from "react-hot-toast";
 import Refersh from "../components/Refersh";
+import { customToast } from "../utils/toast";
 const tierData = [
   { id: 1, tier: "crawler", friendsInvited: "1-6", points: "150 + 6% points" },
   { id: 2, tier: "walker", friendsInvited: "6-10", points: "300 + 8% points" },
@@ -24,7 +24,7 @@ const Score = () => {
 
   const generateCodeHandler = () => {
     if (userInfo?.Invites && userInfo?.Invites.length > 19) {
-      toast.error("Invite code limit reached");
+      customToast({ type: 'error', message: 'Invite code limit reached' })
       return;
     }
     // @ts-ignore

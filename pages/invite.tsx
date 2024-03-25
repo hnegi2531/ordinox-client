@@ -3,7 +3,7 @@ import OTPInput from "@/components/OTPInput";
 import { useReedemInvite } from "@/hooks/mutations/useAddAddress";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+import { customToast } from "../utils/toast";
 const Discord = () => {
   const [otp, setOtp] = useState("");
 
@@ -17,7 +17,7 @@ const Discord = () => {
 
   const handleInvite = () => {
     if (otp.length < 6) {
-      toast.error("Invalid invite code");
+      customToast({ type: 'error', message: 'Invalid invite code' })
       return;
     }
     reedemInviteMutation(otp.toString(), {
@@ -25,7 +25,7 @@ const Discord = () => {
         router.push("/earn");
       },
       onError: () => {
-        toast.error("Invalid invite code");
+        customToast({ type: 'error', message: 'Invalid invite code' })
       },
     });
   };

@@ -8,13 +8,13 @@ import { CiShare1 } from "react-icons/ci";
 import { useUserInfo } from "../hooks/queries/useUser";
 import { shortenAddress } from "../utils/crypto";
 import { ethereumIcon, twitterImageData, usdtIcon } from "../utils/constants";
-import toast from "react-hot-toast";
 import { ethers } from "ethers";
 import { useClaimPoints } from "../hooks/mutations/useClaimPoints";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import Refersh from "../components/Refersh";
 import { FaDiscord } from "react-icons/fa";
+import { customToast } from "../utils/toast";
 
 const Profile = () => {
   const [showModal, setShowModal] = useState(false);
@@ -99,7 +99,7 @@ const Profile = () => {
             <svg
               onClick={() => {
                 navigator.clipboard.writeText(userInfo?.EthAddress ?? "");
-                toast.success("Copied to clipboard");
+                customToast({ message: "Copied to clipboard" });
               }}
               width="18"
               height="22"

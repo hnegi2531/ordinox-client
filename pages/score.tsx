@@ -20,7 +20,7 @@ const Score = () => {
 
   const queryClient = useQueryClient();
 
-  const balance = ethers.formatEther(userInfo?.LastUsdtBalance || "0");
+  const balance = ethers.formatUnits(userInfo?.LastUsdtBalance || '0', 6)
 
   const generateCodeHandler = () => {
     if (userInfo?.Invites && userInfo?.Invites.length > 19) {
@@ -77,11 +77,10 @@ const Score = () => {
                 return (
                   <div key={invite.ID} className="relative">
                     <div
-                      className={`text-lg ${
-                        invite?.IsUsed
-                          ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
-                          : ""
-                      }`}
+                      className={`text-lg ${invite?.IsUsed
+                        ? "bg-opacity-50 text-secondryText text-opacity-50 select-none cursor-default"
+                        : ""
+                        }`}
                     >
                       {invite.Code}
                     </div>

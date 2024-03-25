@@ -48,7 +48,7 @@ const AccountDetails = ({ setScreenNumber, closeModal }: AccountDetailsProps) =>
           USERNAME - <span className="text-white">{userInfo?.Nickname}</span>
         </p>
         <p className="text-brand-300">
-          TWITTER - <span className="text-white">{userInfo?.Email}</span>
+          TWITTER - <span className="text-white">{userInfo?.TwitterHandle}</span>
         </p>
         <p className="flex gap-2 text-brand-300">
           <span>WALLET ADDRESS - </span>

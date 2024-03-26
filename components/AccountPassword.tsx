@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback } from 'react'
 import PasswordInput from './PasswordInput';
 import Button from './Button';
 import { decryptWithAES } from '../utils/crypto';
-import toast from 'react-hot-toast';
+import { customToast } from '../utils/toast';
 
 type AccountPasswordProps = {
   password: string;
@@ -20,7 +20,7 @@ const AccountPassword = ({ password, setPassword, setPrivateKey, setScreenNumber
     if (!password) return;
     const ordinoxPrivateKey = localStorage.getItem('ordinoxKey')
     if (!ordinoxPrivateKey) {
-      toast.error('Login from the device where you first created your account')
+      customToast({ type: 'error', message: 'Login from the device where you first created your account' })
       return;
     }
     try {
@@ -32,7 +32,7 @@ const AccountPassword = ({ password, setPassword, setPrivateKey, setScreenNumber
       setPrivateKey(privateKey);
       setScreenNumber((prev) => prev + 1);
     } catch (error) {
-      toast.error('Wrong password')
+      customToast({ type: 'error', message: 'Wrong password' })
     }
   };
 

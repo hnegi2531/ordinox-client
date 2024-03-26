@@ -65,7 +65,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </AnimatePresence>
           </section>
           <div className="items-center justify-center hidden mb-10 lg:flex">
-            {router.pathname !== "/leaderboard" && <Footer />}
+            {!['/leaderboard', '/score'].includes(router.pathname) && <Footer />}
           </div>
         </div>
         {/* <div className={`absolute inset-0  ${ordinoxGradient} `} /> */}

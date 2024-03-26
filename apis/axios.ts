@@ -42,7 +42,11 @@ axiosInstance.interceptors.response.use(
   },
   async function (error) {
     const apiName = error?.config?.url;
-    // console.log(`API error ${apiName}`, error);
+    console.log(`API error ${apiName}`, error);
+    // if (error.response.status === 401) {
+    //   // Cookies.remove("auth_token");
+    //   // localStorage.removeItem("auth_token");
+    // }
 
     if (error.code === "ECONNABORTED") {
       // eslint-disable-next-line no-throw-literal

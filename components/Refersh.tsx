@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { customToast } from "../utils/toast";
 
 const Refersh = () => {
   const queryClient = useQueryClient();
@@ -10,7 +10,7 @@ const Refersh = () => {
     setLoading(true)
     queryClient.invalidateQueries({ queryKey: ["user"] })
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast.success('Balance updated successfully');
+    customToast({ message: 'Balance updated successfully' });
     setLoading(false);
   }
 

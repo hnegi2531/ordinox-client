@@ -8,13 +8,13 @@ import { CiShare1 } from "react-icons/ci";
 import { useUserInfo } from "../hooks/queries/useUser";
 import { shortenAddress } from "../utils/crypto";
 import { ethereumIcon, twitterImageData, usdtIcon } from "../utils/constants";
-import toast from "react-hot-toast";
 import { ethers } from "ethers";
 import { useClaimPoints } from "../hooks/mutations/useClaimPoints";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import Refersh from "../components/Refersh";
 import { FaDiscord } from "react-icons/fa";
+import { customToast } from "../utils/toast";
 
 const Profile = () => {
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +24,7 @@ const Profile = () => {
   const { data: userInfo } = useUserInfo();
   const queryClient = useQueryClient();
   const { mutate: claimPointsMutation, isPending: claimPointsLoading } = useClaimPoints();
-  const balance = ethers.formatEther(userInfo?.LastUsdtBalance || "0");
+  const balance = ethers.formatUnits(userInfo?.LastUsdtBalance || '0', 6)
   const closeModal = () => {
     setShowModal(false);
   };
@@ -99,7 +99,7 @@ const Profile = () => {
             <svg
               onClick={() => {
                 navigator.clipboard.writeText(userInfo?.EthAddress ?? "");
-                toast.success("Copied to clipboard");
+                customToast({ message: "Copied to clipboard" });
               }}
               width="18"
               height="22"
@@ -111,8 +111,8 @@ const Profile = () => {
                 d="M12.666 2.888C12.5327 2.4163 12.2489 2.00105 11.858 1.70538C11.467 1.40972 10.9902 1.24982 10.5 1.25H7.5C6.47 1.25 5.6 1.943 5.334 2.888M12.666 2.888C12.721 3.082 12.75 3.288 12.75 3.5C12.75 3.69891 12.671 3.88968 12.5303 4.03033C12.3897 4.17098 12.1989 4.25 12 4.25H6C5.80109 4.25 5.61032 4.17098 5.46967 4.03033C5.32902 3.88968 5.25 3.69891 5.25 3.5C5.25 3.288 5.28 3.082 5.334 2.888M12.666 2.888C13.312 2.937 13.954 2.998 14.593 3.072C15.693 3.2 16.5 4.149 16.5 5.257V18.5C16.5 19.0967 16.2629 19.669 15.841 20.091C15.419 20.5129 14.8467 20.75 14.25 20.75H3.75C3.15326 20.75 2.58097 20.5129 2.15901 20.091C1.73705 19.669 1.5 19.0967 1.5 18.5V5.257C1.5 4.149 2.306 3.2 3.407 3.072C4.04804 2.99778 4.6905 2.93643 5.334 2.888"
                 stroke="#EAD3AB"
                 stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>
@@ -154,9 +154,9 @@ const Profile = () => {
                             1. <img src={usdtIcon} width={20} height={20} />
                             <span className="">USDT</span>
                           </div>
-                          <span>
+                          <a href="https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7" target="_blank" className="text-gray-300 cursor-pointer hover:text-gray-100">
                             <CiShare1 />
-                          </span>
+                          </a>
                         </div>
                       </div>
                     </div>

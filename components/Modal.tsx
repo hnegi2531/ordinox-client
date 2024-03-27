@@ -16,7 +16,7 @@ const Modal: React.FC<ModalProps> = ({children, closeModal}) => {
   }
 
   return (
-    <div ref={modalRef} onClick={closeOnClick} className='fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm text-white flex justify-center items-center'>
+    <div ref={modalRef} onClick={closeOnClick} className='fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm text-white flex justify-center items-center z-20'>
       {children}
     </div>
   )

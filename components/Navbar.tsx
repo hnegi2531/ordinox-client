@@ -1,7 +1,7 @@
 import { useUserInfo } from "@/hooks/queries/useUser";
 import { useRouter } from "next/router";
 import React, { useCallback, useMemo, useState } from "react";
-import Logo from "./Logo";
+import Logo, { GlitchLogo } from "./Logo";
 import NavRoute from "./NavRoute";
 import Account from "./Account";
 
@@ -39,7 +39,8 @@ const Navbar = () => {
     <nav className="px-4 pt-4 pb-10 lg:px-20 lg:py-10">
       <div className="flex flex-col justify-between gap-2 bg-transparent md:items-center md:flex-row">
         <div className="cursor-pointer" onClick={handleLogoClick}>
-          <Logo size="lg" />
+          {/* <Logo size="lg" /> */}
+          <GlitchLogo size='lg' />
         </div>
         <div className="flex flex-row flex-wrap gap-2 lg:gap-12">
           {navLinks.map((link) => {
@@ -49,9 +50,8 @@ const Navbar = () => {
               <a
                 href={link.route}
                 target="_blank"
-                className={`uppercase text-base hover:text-brand-300 transition-all duration-100 pb-1 select-none ${
-                  isActive ? "border-b text-brand-300 border-brand-300" : "text-white"
-                } ${showLink ? "flex" : "hidden"}`}
+                className={`uppercase text-base hover:text-brand-300 transition-all duration-100 pb-1 select-none ${isActive ? "border-b text-brand-300 border-brand-300" : "text-white"
+                  } ${showLink ? "flex" : "hidden"}`}
               >
                 {link.text}
               </a>
@@ -59,9 +59,8 @@ const Navbar = () => {
               <NavRoute
                 key={link.id}
                 route={link.route}
-                className={`text-base hover:text-brand-300 transition-all duration-100 pb-1 select-none ${
-                  isActive ? "border-b text-brand-300 border-brand-300" : "text-white"
-                } ${showLink ? "flex" : "hidden"}`}
+                className={`text-base hover:text-brand-300 transition-all duration-100 pb-1 select-none ${isActive ? "border-b text-brand-300 border-brand-300" : "text-white"
+                  } ${showLink ? "flex" : "hidden"}`}
               >
                 {link.text}
               </NavRoute>

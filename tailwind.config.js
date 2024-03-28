@@ -29,13 +29,14 @@ module.exports = {
         popUp: "#1D1E20",
         textWarning: "#FF5555",
         verified: "#00FFA3",
+        discordbtn: "#757DF0"
       },
       backgroundImage: {
-        // paper: "url('/ordinox-bg.webp'), url('/noise.png')",
         paper: "url('/bg-home.webp')",
         ordinox: "url('/ordinox.webp')",
         noiseImage: "url('/noise.png')",
         ordinoxScore: "url('/ordinox_score.webp')",
+        ordinoxSwap: "url('/swap-bg.webp')",
         "gradient-radial":
           "radial-gradient(rgba(0, 0, 0, 0.8), rgba(0,0,0,0.6), rgba(0, 0, 0, 0.8))",
       },

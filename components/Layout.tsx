@@ -12,17 +12,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
 
   const ordinoxBackground = useMemo(() => {
-    if (router?.pathname === "/") {
-      return "bg-paper";
-    }
+    if (router?.pathname === "/") return "bg-paper";
 
-    if (router?.pathname === "/leaderboard") {
-      return "bg-black";
-    }
+    if (router?.pathname === "/leaderboard") return "bg-black";
 
-    if (router?.pathname === "/score") {
-      return "bg-ordinoxScore";
-    }
+    if (router?.pathname === "/score") return "bg-ordinoxScore";
+
+    if (router?.pathname === "/swap") return "bg-ordinoxSwap";
 
     return "bg-ordinox";
   }, [router?.pathname]);
@@ -45,8 +41,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <article className="relative flex flex-col items-center w-screen h-screen overflow-auto bg-black font-spacemono text-secondryText">
-      <div
-        className={`flex flex-col items-center w-full h-full min-h-screen bg-cover ${ordinoxBackground}`}>
+      <div className={`flex flex-col items-center w-full h-full min-h-screen bg-cover ${ordinoxBackground}`}>
         <div className="z-20 flex flex-col w-full h-full">
           <header>
             <Navbar />
@@ -59,13 +54,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.1, ease: "easeInOut" }}
-                className="w-full h-full">
+                className="w-full h-full"
+              >
                 {children}
               </motion.div>
             </AnimatePresence>
           </section>
           <div className="items-center justify-center hidden mb-10 lg:flex">
-            {!['/leaderboard', '/score'].includes(router.pathname) && <Footer />}
+
+            {!["/leaderboard", "/score", "/swap"].includes(router.pathname) && <Footer />}
+
           </div>
         </div>
         {/* <div className={`absolute inset-0  ${ordinoxGradient} `} /> */}
